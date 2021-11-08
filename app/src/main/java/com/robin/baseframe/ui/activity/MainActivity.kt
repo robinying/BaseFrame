@@ -1,7 +1,8 @@
-package com.robin.baseframe
+package com.robin.baseframe.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.robin.baseframe.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
