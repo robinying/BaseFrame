@@ -17,6 +17,10 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseDialogFragment(@LayoutRes layoutID: Int) : DialogFragment(layoutID),
     CoroutineScope by MainScope() {
 
+    init {
+        setStyle(STYLE_NORMAL, R.style.CommonDialogStyle)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onFragmentCreated(view, savedInstanceState)

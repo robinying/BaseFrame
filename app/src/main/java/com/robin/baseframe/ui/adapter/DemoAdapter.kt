@@ -26,7 +26,7 @@ class DemoAdapter(context: Context) : RecyclerAdapter<String, ItemDemoStrBinding
     override fun registerListener(holder: ItemViewHolder, binding: ItemDemoStrBinding) {
         binding.run {
             root.setOnClickListener {
-                val content = getItem(holder.adapterPosition)
+                val content = getItem(holder.adapterPosition - getHeaderCount())
                 toast(content ?: "")
 
             }
