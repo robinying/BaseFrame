@@ -5,6 +5,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.robin.baseframe.R
 import com.robin.baseframe.app.coroutine.Coroutine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

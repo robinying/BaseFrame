@@ -50,7 +50,9 @@ inline fun <reified VM : BaseViewModel> Fragment.getAppViewModel(): VM {
 class ParamViewModelFactory<VM : ViewModel>(
     private val factory: () -> VM,
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = factory() as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return factory() as T
+    }
 }
 
 //适用于需要传入参数的ViewModel

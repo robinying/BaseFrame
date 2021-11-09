@@ -11,8 +11,6 @@
         android:background="@color/colorPrimary"
         android:elevation="5dp"
         android:theme="?attr/actionBarStyle"
-        app:displayHomeAsUp="false"
-        app:fitStatusBar="false"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="基础框架"
@@ -26,8 +24,40 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <com.robin.baseframe.widget.SuperButton
+                android:id="@+id/bt_dialog"
+                android:layout_width="104dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="Dialog"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:sCornersRadius="6dp"
+                app:sSelectorNormalColor="#3E99D2"
+                app:sSelectorPressedColor="#881A4A"
+                app:sStrokeColor="@color/black"
+                app:sStrokeWidth="1dp"
+                app:sUseSelector="true" />
+
+            <com.robin.baseframe.widget.text.DPTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:paddingStart="6dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="4dp"
+                android:text="DPTextView"
+                android:textSize="12sp"
+                app:backgroundColor="@color/colorPrimary"
+                app:backgroundPressedColor="#D59A9A"
+                app:corner_radius="6dp" />
 
 
         </LinearLayout>

@@ -45,7 +45,7 @@ inline fun <reified T> T?.notNull(notNullAction: (T) -> Unit, nullAction: () -> 
 /**
  * dp值转换为px
  */
-fun Context.dp2px(dp: Int): Int {
+fun Context.dp2px(dp: Float): Int {
     val scale = resources.displayMetrics.density
     return (dp * scale + 0.5f).toInt()
 }
@@ -53,7 +53,7 @@ fun Context.dp2px(dp: Int): Int {
 /**
  * px值转换成dp
  */
-fun Context.px2dp(px: Int): Int {
+fun Context.px2dp(px: Float): Int {
     val scale = resources.displayMetrics.density
     return (px / scale + 0.5f).toInt()
 }
@@ -61,7 +61,7 @@ fun Context.px2dp(px: Int): Int {
 /**
  * dp值转换为px
  */
-fun View.dp2px(dp: Int): Int {
+fun View.dp2px(dp: Float): Int {
     val scale = resources.displayMetrics.density
     return (dp * scale + 0.5f).toInt()
 }
@@ -69,7 +69,7 @@ fun View.dp2px(dp: Int): Int {
 /**
  * px值转换成dp
  */
-fun View.px2dp(px: Int): Int {
+fun View.px2dp(px: Float): Int {
     val scale = resources.displayMetrics.density
     return (px / scale + 0.5f).toInt()
 }
