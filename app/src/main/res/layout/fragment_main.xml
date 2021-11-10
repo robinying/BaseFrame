@@ -59,6 +59,14 @@
                 app:backgroundPressedColor="#D59A9A"
                 app:corner_radius="6dp" />
 
+            <com.robin.baseframe.widget.SuperButton
+                android:id="@+id/bt_any_layer"
+                style="@style/CommonButton"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:text="AnyLayer" />
+
 
         </LinearLayout>
 

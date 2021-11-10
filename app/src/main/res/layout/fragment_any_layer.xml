@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="5dp"
+        android:theme="?attr/actionBarStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="AnyLayer 浮层框架"
+        app:titleTextAppearance="@style/ToolbarTitle" />
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_drag"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:text="Drag AnyLayer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar" />
+
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_toast"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:text="Toast AnyLayer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_drag" />
+
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_notification"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:text="Notification AnyLayer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_toast" />
+
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_popup"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:text="PopUp AnyLayer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_notification" />
+
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_dialog_alpha"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:text="Dialog Alpha AnyLayer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_popup" />
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_guide"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:text="Guide AnyLayer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_dialog_alpha" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

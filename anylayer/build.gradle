@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from:  "../library.gradle"
+
+android {
+}
+
+dependencies {
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:1.5.31"
+    compileOnly 'androidx.core:core-ktx:1.7.0'
+}

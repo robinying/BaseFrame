@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BaseFrame</string>
+    <string name="dialog_msg">Layer Dialog Message</string>
 </resources>

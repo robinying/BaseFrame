@@ -16,7 +16,10 @@ import com.robin.baseframe.databinding.DialogBottomBinding
 import com.robin.baseframe.databinding.RvHeaderBinding
 import com.robin.baseframe.ui.adapter.DemoAdapter
 
-
+/*
+* DialogFragment布局文件中root使用ConstraintLayout时不显示，使用LinearLayout显示，
+* 动画要在set根路径下添加duration，否则不生效
+* */
 class BottomDialog : BaseDialogFragment(R.layout.dialog_bottom) {
     private val binding by viewBinding(DialogBottomBinding::bind)
     private val adapter by lazy { DemoAdapter(requireContext()) }
