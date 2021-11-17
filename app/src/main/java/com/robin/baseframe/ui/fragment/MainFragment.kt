@@ -16,9 +16,12 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
         binding.btDialog.clickNoRepeat {
             showDialogFragment(BottomDialog())
         }
-        binding.btAnyLayer.onClick{
+        binding.btAnyLayer.onClick {
             nav().navigateAction(R.id.action_main_to_anyLayerFragment)
-
         }
+        binding.btMotion.onClick {
+            nav().navigateAction(R.id.action_main_to_motionFragment)
+        }
+
     }
 }
