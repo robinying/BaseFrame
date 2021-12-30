@@ -12,5 +12,7 @@ class App : BaseApp() {
         MultiDex.install(this)
         AnyLayer.init(this)
         openLog = BuildConfig.DEBUG
+
+        
     }
 }
