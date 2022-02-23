@@ -61,6 +61,15 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "me.jessyan:retrofit-url-manager:1.4.0"
     implementation 'com.guolindev.permissionx:permissionx:1.6.1'
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.0.1"
+// CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:1.0.1"
+// CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha27"
+
+    implementation'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    implementation 'com.blankj:utilcodex:1.30.6'
     implementation project(":anylayer")
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
