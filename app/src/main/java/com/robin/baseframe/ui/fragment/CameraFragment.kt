@@ -15,14 +15,12 @@ import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.ext.nav
 import com.robin.baseframe.databinding.FragmentCameraBinding
-import jp.co.cyberagent.android.gpuimage.GPUImage
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class CameraFragment:BaseFragment<BaseViewModel,FragmentCameraBinding>() {
     private lateinit var cameraExecutor: ExecutorService
     private var bitmap: Bitmap? = null
-    private var gpuImage: GPUImage? = null
     private var isTakePhoto = false
     override fun initView(savedInstanceState: Bundle?) {
         cameraExecutor = Executors.newSingleThreadExecutor()
