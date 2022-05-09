@@ -85,6 +85,14 @@
                 android:layout_height="24dp"
                 android:layout_marginTop="12dp"
                 android:text="Scoped Storage" />
+
+            <com.robin.baseframe.widget.SuperButton
+                android:id="@+id/bt_coordinator"
+                style="@style/CommonButton"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:text="CoordinatorLayout" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

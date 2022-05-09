@@ -35,7 +35,9 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
         }
         binding.btScopedStorage.onClick{
             nav().navigateAction(R.id.action_main_to_storageFragment)
-
+        }
+        binding.btCoordinator.onClick{
+            nav().navigateAction(R.id.action_main_to_coordinatorFragment)
         }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {

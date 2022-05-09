@@ -34,6 +34,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_main_to_coordinatorFragment"
+            app:destination="@id/coordinatorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -47,12 +55,18 @@
         android:id="@+id/motionFragment"
         android:name="com.robin.baseframe.ui.fragment.MotionFragment"
         android:label="MotionFragment"
-        tools:layout="@layout/fragment_motion"/>
+        tools:layout="@layout/fragment_motion" />
 
 
     <fragment
         android:id="@+id/storageFragment"
         android:name="com.robin.baseframe.ui.fragment.StorageFragment"
         android:label="StorageFragment"
-        tools:layout="@layout/fragment_storage"/>
+        tools:layout="@layout/fragment_storage" />
+
+    <fragment
+        android:id="@+id/coordinatorFragment"
+        android:name="com.robin.baseframe.ui.fragment.CoordinatorFragment"
+        android:label="CoordinatorFragment"
+        tools:layout="@layout/fragment_coordinator" />
 </navigation>

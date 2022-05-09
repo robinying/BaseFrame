@@ -12,7 +12,6 @@ class StorageFragment : BaseFragment<StorageViewModel, FragmentStorageBinding>()
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { result ->
             if (result != null) {
                 LogUtils.debugInfo("uri:$result")
-
             }
         }
 
@@ -42,7 +41,6 @@ class StorageFragment : BaseFragment<StorageViewModel, FragmentStorageBinding>()
         binding.tvInternalStorage.text = internalSb.toString()
         binding.btSelect.onClick {
             startSelectFile()
-
         }
     }
 

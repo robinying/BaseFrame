@@ -1,9 +1,14 @@
 package com.robin.baseframe.widget
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import androidx.core.graphics.ColorUtils
+import com.robin.baseframe.R
 import com.robin.baseframe.app.util.NumberUtils
+import kotlin.random.Random
 
 object ColorUtil {
 
@@ -59,5 +64,21 @@ object ColorUtil {
         val B = Color.blue(sourceColor)
         val A = (alpha * 255.0f + 0.5f).toInt()
         return Color.argb(A, R, G, B)
+    }
+
+
+    @SuppressLint("ResourceType")
+    fun randomColor(context: Context, @IntRange(from = 0, to = 255) alpha: Int = 255): Int = let {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val random = Random
+            return@let Color.argb(
+                alpha,
+                random.nextInt(225),
+                random.nextInt(225),
+                random.nextInt(225),
+            )
+        } else {
+            return@let context.resources.getColor(R.color.md_blue_500)
+        }
     }
 }

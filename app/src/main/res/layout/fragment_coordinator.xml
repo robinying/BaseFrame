@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_color"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_behavior=".widget.MoveBehavior"/>
+
+    <com.robin.baseframe.widget.MoveView
+        android:id="@+id/move_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="@color/md_red_50"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
