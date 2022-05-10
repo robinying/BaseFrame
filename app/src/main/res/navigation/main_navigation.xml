@@ -42,6 +42,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_main_to_countDownFragment"
+            app:destination="@id/countDownFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -69,4 +77,10 @@
         android:name="com.robin.baseframe.ui.fragment.CoordinatorFragment"
         android:label="CoordinatorFragment"
         tools:layout="@layout/fragment_coordinator" />
+
+    <fragment
+        android:id="@+id/countDownFragment"
+        android:name="com.robin.baseframe.ui.fragment.CountDownFragment"
+        android:label="CountDownFragment"
+        tools:layout="@layout/fragment_count_down" />
 </navigation>

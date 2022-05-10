@@ -1,14 +1,15 @@
-package com.robin.baseframe.widget
+package com.robin.baseframe.widget.behavior
 
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.robin.baseframe.app.util.LogUtils
+import com.robin.baseframe.widget.ColorUtil
+import com.robin.baseframe.widget.MoveView
 
 
 class MoveBehavior<T : View>(val context: Context, attrs: AttributeSet?) :

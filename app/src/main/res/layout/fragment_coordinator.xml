@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_view"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,13 +11,20 @@
         android:id="@+id/tv_color"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_behavior=".widget.MoveBehavior"/>
+        app:layout_behavior=".widget.behavior.MoveBehavior" />
 
     <com.robin.baseframe.widget.MoveView
         android:id="@+id/move_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:background="@color/md_red_50"/>
+        android:background="@color/md_red_50" />
+
+    <com.robin.baseframe.widget.CustomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/md_red_500"
+        app:layout_behavior=".widget.behavior.NavigationBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

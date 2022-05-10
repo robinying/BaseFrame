@@ -39,6 +39,9 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
         binding.btCoordinator.onClick{
             nav().navigateAction(R.id.action_main_to_coordinatorFragment)
         }
+        binding.btCountDown.onClick{
+            nav().navigateAction(R.id.action_main_to_countDownFragment)
+        }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {
             LogUtils.debugInfo("$it")
