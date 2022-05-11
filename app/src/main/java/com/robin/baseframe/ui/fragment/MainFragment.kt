@@ -33,14 +33,20 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
         binding.btMotion.onClick {
             nav().navigateAction(R.id.action_main_to_motionFragment)
         }
-        binding.btScopedStorage.onClick{
+        binding.btScopedStorage.onClick {
             nav().navigateAction(R.id.action_main_to_storageFragment)
         }
-        binding.btCoordinator.onClick{
+        binding.btCoordinator.onClick {
             nav().navigateAction(R.id.action_main_to_coordinatorFragment)
         }
-        binding.btCountDown.onClick{
+        binding.btCountDown.onClick {
             nav().navigateAction(R.id.action_main_to_countDownFragment)
+        }
+        binding.btDsl.onClick {
+            nav().navigateAction(R.id.action_main_to_dslFragment)
+        }
+        binding.btScrollView.onClick {
+            nav().navigateAction(R.id.action_main_to_scrollFragment)
         }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {

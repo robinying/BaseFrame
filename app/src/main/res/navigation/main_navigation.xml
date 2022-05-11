@@ -58,6 +58,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_main_to_scrollFragment"
+            app:destination="@id/scrollFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -97,4 +105,10 @@
         android:name="com.robin.baseframe.ui.fragment.DslFragment"
         android:label="DslFragment"
         tools:layout="@layout/fragment_dsl" />
+
+    <fragment
+        android:id="@+id/scrollFragment"
+        android:name="com.robin.baseframe.ui.fragment.ScrollFragment"
+        android:label="ScrollFragment"
+        tools:layout="@layout/fragment_scroll_view" />
 </navigation>

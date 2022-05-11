@@ -44,7 +44,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="dFragment">
+                  <entry key="dslFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -82,6 +82,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_main_to_dslFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_main_to_motionFragment">
                               <value>
                                 <LayoutPositions />
@@ -104,6 +109,18 @@
                           <Point>
                             <option name="x" value="349" />
                             <option name="y" value="-103" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="sc">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
