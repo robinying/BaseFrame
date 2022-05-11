@@ -23,6 +23,7 @@
         <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.20471014492753623" />
         <entry key="app/src/main/res/layout/fragment_coordinator.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_count_down.xml" value="0.1515625" />
+        <entry key="app/src/main/res/layout/fragment_dsl.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_motion.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_storage.xml" value="0.1515625" />
       </map>
