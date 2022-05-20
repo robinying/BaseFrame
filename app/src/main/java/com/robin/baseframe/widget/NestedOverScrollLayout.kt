@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Scroller
 import androidx.core.view.NestedScrollingParent3
 import androidx.core.view.NestedScrollingParentHelper
+import androidx.core.view.ViewCompat
 import com.robin.baseframe.app.util.LogUtils
 
 open class NestedOverScrollLayout : ViewGroup, NestedScrollingParent3 {
@@ -155,7 +156,8 @@ open class NestedOverScrollLayout : ViewGroup, NestedScrollingParent3 {
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
         LogUtils.debugInfo(TAG,"onStartNestedScroll child:${child::class.simpleName},target:${target::class.simpleName},type:$type")
-        return false
+
+        return axes and ViewCompat.SCROLL_AXIS_VERTICAL != 0
     }
 
     override fun onNestedScrollAccepted(child: View, target: View, axes: Int, type: Int) {
