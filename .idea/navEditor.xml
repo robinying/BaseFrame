@@ -92,6 +92,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_main_to_scrollFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_main_to_storageFragment">
                               <value>
                                 <LayoutPositions />
@@ -114,7 +119,19 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="sc">
+                  <entry key="pop">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="scrollFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">

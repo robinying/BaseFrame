@@ -48,6 +48,9 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
         binding.btScrollView.onClick {
             nav().navigateAction(R.id.action_main_to_scrollFragment)
         }
+        binding.btPopUp.onClick {
+            nav().navigateAction(R.id.action_main_to_popupWindowFragment)
+        }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {
             LogUtils.debugInfo("$it")

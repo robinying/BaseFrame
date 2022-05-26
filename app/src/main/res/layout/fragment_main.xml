@@ -117,6 +117,14 @@
                 android:layout_height="24dp"
                 android:layout_marginTop="12dp"
                 android:text="Over ScrollView" />
+
+            <com.robin.baseframe.widget.SuperButton
+                android:id="@+id/bt_pop_up"
+                style="@style/CommonButton"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:text="Popup" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

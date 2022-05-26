@@ -44,15 +44,36 @@
     </style>
 
     <style name="CommonButton" parent="android:Widget.Holo.Light.Button">
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:paddingStart">4dp</item>
-        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="sSelectorNormalColor">@color/colorPrimary</item>
 <!--        <item name="sSelectorPressedColor">@color/md_red_A200</item>-->
         <item name="sCornersRadius">4dp</item>
         <item name="sUseSelector">true</item>
+    </style>
+
+    <style name="AnimDown" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_translate_in</item>
+        <item name="android:windowExitAnimation">@anim/push_top_translate_out</item>
+    </style>
+
+
+    <style name="AnimUp" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+    <style name="AnimLeft" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_scale_left_in</item>
+        <item name="android:windowExitAnimation">@anim/push_scale_left_out</item>
+    </style>
+
+    <style name="AnimRight" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_scale_right_in</item>
+        <item name="android:windowExitAnimation">@anim/push_scale_right_out</item>
     </style>
 </resources>

@@ -66,6 +66,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_main_to_popupWindowFragment"
+            app:destination="@id/popupWindowFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -111,4 +119,10 @@
         android:name="com.robin.baseframe.ui.fragment.ScrollFragment"
         android:label="ScrollFragment"
         tools:layout="@layout/fragment_scroll_view" />
+
+    <fragment
+        android:id="@+id/popupWindowFragment"
+        android:name="com.robin.baseframe.ui.fragment.PopupWindowFragment"
+        android:label="PopupWindowFragment"
+        tools:layout="@layout/fragment_pop_up_window" />
 </navigation>
