@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,6 +17,18 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="DSL Usage"
         app:titleTextAppearance="@style/ToolbarTitle" />
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_pop_all"
+        style="@style/CommonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="12dp"
+        android:text="All"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.robin.baseframe.widget.SuperButton
         android:id="@+id/bt_pop_up"

@@ -21,6 +21,7 @@
         <entry key="..\:/mycode/BaseFrame/app/src/main/res/layout/rv_header.xml" value="0.1921875" />
         <entry key="..\:/mycode/BaseFrame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/popup_grey_bg.xml" value="0.1715" />
+        <entry key="app/src/main/res/drawable/popup_item_bg.xml" value="0.3115" />
         <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.20471014492753623" />
         <entry key="app/src/main/res/layout/fragment_coordinator.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_count_down.xml" value="0.1515625" />
@@ -31,7 +32,9 @@
         <entry key="app/src/main/res/layout/fragment_scroll_view.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_storage.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/item_demo_str.xml" value="0.16770833333333332" />
+        <entry key="app/src/main/res/layout/item_popup_view.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/popup_demo.xml" value="0.1625" />
+        <entry key="app/src/main/res/layout/popup_rv.xml" value="0.1625" />
       </map>
     </option>
   </component>

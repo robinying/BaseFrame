@@ -28,9 +28,7 @@ class DemoAdapter(context: Context) : RecyclerAdapter<String, ItemDemoStrBinding
             root.setOnClickListener {
                 val content = getItem(holder.adapterPosition - getHeaderCount())
                 toast(content ?: "")
-
             }
-
         }
     }
 }

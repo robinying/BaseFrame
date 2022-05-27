@@ -3,6 +3,7 @@ package com.robin.baseframe.app.base
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
     //Application全局的ViewModel，用于发送全局通知操作
     val eventViewModel: EventViewModel by lazy { getAppViewModel() }
 
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
 
     //是否第一次加载
     private var isFirst: Boolean = true

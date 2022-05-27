@@ -70,4 +70,15 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
         }
 
     }
+
+
+    override fun lazyLoadData() {
+        super.lazyLoadData()
+        getClassLoader()
+    }
+
+    private fun getClassLoader() {
+        val classLoader = mActivity.classLoader
+        LogUtils.debugInfo("classLoader toString:$classLoader")
+    }
 }
