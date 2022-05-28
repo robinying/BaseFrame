@@ -1,13 +1,12 @@
 package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-import android.view.WindowInsets
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import com.robin.baseframe.R
 import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.base.BaseViewModel
@@ -19,9 +18,12 @@ import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.databinding.FragmentMainBinding
 import com.robin.baseframe.test.Test
-import org.w3c.dom.Node
+import com.robin.baseframe.viewmodel.MainViewModel
+import java.lang.ref.ReferenceQueue
+import java.lang.ref.SoftReference
+import java.lang.ref.WeakReference
 
-class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
+class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     private val data = intArrayOf(10, 3, 4, 2, 5, 42, 32, 8)
     override fun initView(savedInstanceState: Bundle?) {
         binding.btDialog.clickNoRepeat {
@@ -75,10 +77,13 @@ class MainFragment : BaseFragment<BaseViewModel, FragmentMainBinding>() {
     override fun lazyLoadData() {
         super.lazyLoadData()
         getClassLoader()
+        mViewModel.testReference()
     }
 
     private fun getClassLoader() {
         val classLoader = mActivity.classLoader
         LogUtils.debugInfo("classLoader toString:$classLoader")
     }
+
+
 }
