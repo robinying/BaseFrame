@@ -1,15 +1,21 @@
 package com.robin.baseframe.ui.fragment
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
-import android.util.Log
+import android.os.IBinder
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
-import androidx.lifecycle.lifecycleScope
+import com.robin.aidldemo.Apple
+import com.robin.aidldemo.IApiCallBack
+import com.robin.aidldemo.IRemoteService
+import com.robin.aidldemo.IRemoteServiceCallBack
 import com.robin.baseframe.R
 import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.ext.nav
 import com.robin.baseframe.app.ext.navigateAction
 import com.robin.baseframe.app.ext.showDialogFragment
@@ -17,14 +23,14 @@ import com.robin.baseframe.app.ext.view.clickNoRepeat
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.databinding.FragmentMainBinding
+import com.robin.baseframe.service.RemoteService
 import com.robin.baseframe.test.Test
 import com.robin.baseframe.viewmodel.MainViewModel
-import java.lang.ref.ReferenceQueue
-import java.lang.ref.SoftReference
-import java.lang.ref.WeakReference
 
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     private val data = intArrayOf(10, 3, 4, 2, 5, 42, 32, 8)
+    private var mIApiCallback: IApiCallBack? = null
+    private var mObserverService: IRemoteService? = null
     override fun initView(savedInstanceState: Bundle?) {
         binding.btDialog.clickNoRepeat {
             showDialogFragment(BottomDialog())
@@ -70,7 +76,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
             params.topMargin = insets.systemWindowInsetTop
             insets
         }
-
+        bindService()
+        bindRemoteService()
     }
 
 
@@ -78,6 +85,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         super.lazyLoadData()
         getClassLoader()
         mViewModel.testReference()
+        LogUtils.debugInfo("get info from remote:" + mIApiCallback?.appleInfo)
     }
 
     private fun getClassLoader() {
@@ -85,5 +93,52 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         LogUtils.debugInfo("classLoader toString:$classLoader")
     }
 
+    private fun bindService() {
+        val intent = Intent(mActivity, RemoteService::class.java)
+        mActivity.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE)
+    }
 
+    private fun bindRemoteService() {
+        val intent = Intent()
+        intent.setComponent(
+            ComponentName(
+                "com.robin.baseframe.service",
+                "com.robin.baseframe.service.RemoteObserverService"
+            )
+        )
+        mActivity.bindService(intent, mRemoteServiceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    private val mServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            mIApiCallback = IApiCallBack.Stub.asInterface(service)
+            LogUtils.debugInfo("connect to RemoteService")
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            mIApiCallback = null
+            LogUtils.debugInfo("disconnect to RemoteService")
+        }
+    }
+
+    private val mRemoteServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            mObserverService = IRemoteService.Stub.asInterface(service)
+            mObserverService?.registerCallback(mRemoteCallback)
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            mObserverService?.unregisterCallback(mRemoteCallback)
+            mObserverService = null
+        }
+
+    }
+
+    private val mRemoteCallback = object : IRemoteServiceCallBack.Stub() {
+        override fun noticeAppleInfo(apple: Apple?) {
+            LogUtils.debugInfo("noticeAppleInfo apple:$apple")
+        }
+
+
+    }
 }
