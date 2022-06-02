@@ -92,6 +92,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_main_to_popupWindowFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_main_to_scrollFragment">
                               <value>
                                 <LayoutPositions />
@@ -119,7 +124,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="pop">
+                  <entry key="popupWindowFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
