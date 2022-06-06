@@ -1,6 +1,7 @@
 package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import com.blankj.utilcode.util.ToastUtils
 import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.base.BaseViewModel
@@ -11,6 +12,7 @@ import com.robin.baseframe.ext.addTextChangedListenerDsl
 import com.robin.baseframe.ext.buildSpannableString
 
 class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
+    private var timer:CountDownTimer?= null
     override fun initView(savedInstanceState: Bundle?) {
         binding.et1.addTextChangedListenerDsl {
             afterTextChanged {
@@ -35,5 +37,15 @@ class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
                 }
             }
         }
+        timer = object :CountDownTimer(30000,100){
+            override fun onTick(millisUntilFinished: Long) {
+                binding.moonPhaseView.mPhase = (millisUntilFinished /100).toInt()
+            }
+
+            override fun onFinish() {
+
+            }
+        }
+        timer?.start()
     }
 }

@@ -74,6 +74,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_main_to_composeFragment"
+            app:destination="@id/composeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -125,4 +133,10 @@
         android:name="com.robin.baseframe.ui.fragment.PopupWindowFragment"
         android:label="PopupWindowFragment"
         tools:layout="@layout/fragment_pop_up_window" />
+
+    <fragment
+        android:id="@+id/composeFragment"
+        android:name="com.robin.baseframe.ui.fragment.ComposeFragment"
+        android:label="ComposeFragment"
+        tools:layout="@layout/fragment_compose" />
 </navigation>

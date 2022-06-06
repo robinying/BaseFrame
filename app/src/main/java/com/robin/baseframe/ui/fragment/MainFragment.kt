@@ -59,6 +59,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         binding.btPopUp.onClick {
             nav().navigateAction(R.id.action_main_to_popupWindowFragment)
         }
+        binding.btCompose.onClick{
+            nav().navigateAction(R.id.action_main_to_composeFragment)
+        }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {
             LogUtils.debugInfo("$it")

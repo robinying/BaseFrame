@@ -1,4 +1,4 @@
-package com.robin.baseframe.ui.fragment
+package com.robin.baseframe.viewmodel
 
 import android.content.ContentUris
 import android.media.Image

@@ -97,4 +97,8 @@
             <enum name="rect" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="MoonPhaseView">
+
+    </declare-styleable>
 </resources>

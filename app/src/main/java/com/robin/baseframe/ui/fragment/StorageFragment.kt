@@ -6,6 +6,7 @@ import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.databinding.FragmentStorageBinding
+import com.robin.baseframe.viewmodel.StorageViewModel
 
 class StorageFragment : BaseFragment<StorageViewModel, FragmentStorageBinding>() {
     private val requestDataLauncher =
