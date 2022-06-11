@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_coordinator.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_count_down.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_dsl.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_flow.xml" value="0.14114583333333333" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_motion.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_pop_up_window.xml" value="0.1625" />

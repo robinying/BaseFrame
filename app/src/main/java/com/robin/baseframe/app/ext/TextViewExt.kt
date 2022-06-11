@@ -1,12 +1,12 @@
-package com.robin.baseframe.ext
+package com.robin.baseframe.app.ext
 
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
-import com.robin.baseframe.ext.dsl.DslSpannableStringBuilderImpl
-import com.robin.baseframe.ext.dsl.TextWatcherDslImpl
+import com.robin.baseframe.app.ext.dsl.DslSpannableStringBuilderImpl
+import com.robin.baseframe.app.ext.dsl.TextWatcherDslImpl
 
 fun TextView.addTextChangedListenerDsl(init: TextWatcherDslImpl.() -> Unit) {
     val listener = TextWatcherDslImpl()

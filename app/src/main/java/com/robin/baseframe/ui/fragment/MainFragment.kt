@@ -59,8 +59,11 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         binding.btPopUp.onClick {
             nav().navigateAction(R.id.action_main_to_popupWindowFragment)
         }
-        binding.btCompose.onClick{
+        binding.btCompose.onClick {
             nav().navigateAction(R.id.action_main_to_composeFragment)
+        }
+        binding.btFlow.onClick{
+            nav().navigateAction(R.id.action_main_to_flowFragment)
         }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {
@@ -103,11 +106,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private fun bindRemoteService() {
         val intent = Intent()
-        intent.setComponent(
-            ComponentName(
-                "com.robin.baseframe.service",
-                "com.robin.baseframe.service.RemoteObserverService"
-            )
+        intent.component = ComponentName(
+            "com.robin.baseframe.service",
+            "com.robin.baseframe.service.RemoteObserverService"
         )
         mActivity.bindService(intent, mRemoteServiceConnection, Context.BIND_AUTO_CREATE)
     }

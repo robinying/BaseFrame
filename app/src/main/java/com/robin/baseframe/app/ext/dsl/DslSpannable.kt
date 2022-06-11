@@ -1,4 +1,4 @@
-package com.robin.baseframe.ext.dsl
+package com.robin.baseframe.app.ext.dsl
 
 import android.graphics.Color
 import android.text.Spannable
@@ -9,8 +9,8 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.view.View
-import com.robin.baseframe.ext.DslSpanBuilder
-import com.robin.baseframe.ext.DslSpannableStringBuilder
+import com.robin.baseframe.app.ext.DslSpanBuilder
+import com.robin.baseframe.app.ext.DslSpannableStringBuilder
 
 class DslSpannableStringBuilderImpl : DslSpannableStringBuilder {
     private val builder = SpannableStringBuilder()

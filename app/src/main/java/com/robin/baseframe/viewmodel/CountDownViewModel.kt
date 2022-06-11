@@ -3,7 +3,7 @@ package com.robin.baseframe.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.robin.baseframe.app.base.BaseViewModel
-import com.robin.baseframe.bean.User
+import com.robin.baseframe.data.bean.User
 
 class CountDownViewModel:BaseViewModel() {
 

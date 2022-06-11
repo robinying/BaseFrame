@@ -142,6 +142,15 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:text="Compose" />
+
+            <com.robin.baseframe.widget.SuperButton
+                android:id="@+id/bt_flow"
+                style="@style/CommonButton"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="Flow" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

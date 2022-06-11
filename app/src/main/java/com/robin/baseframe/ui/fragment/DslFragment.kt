@@ -7,9 +7,9 @@ import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.util.KeyBoardUtils
 import com.robin.baseframe.databinding.FragmentDslBinding
-import com.robin.baseframe.ext.addTextChangedListenerClosure
-import com.robin.baseframe.ext.addTextChangedListenerDsl
-import com.robin.baseframe.ext.buildSpannableString
+import com.robin.baseframe.app.ext.addTextChangedListenerClosure
+import com.robin.baseframe.app.ext.addTextChangedListenerDsl
+import com.robin.baseframe.app.ext.buildSpannableString
 
 class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
     private var timer:CountDownTimer?= null

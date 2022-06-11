@@ -6,7 +6,7 @@ import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.event.SharedFlowBus
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
-import com.robin.baseframe.bean.User
+import com.robin.baseframe.data.bean.User
 import com.robin.baseframe.databinding.FragmentCountDownBinding
 import com.robin.baseframe.viewmodel.CountDownViewModel
 
