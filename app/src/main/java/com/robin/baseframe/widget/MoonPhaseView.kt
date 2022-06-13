@@ -23,6 +23,8 @@ class MoonPhaseView(context: Context, attrs: AttributeSet? = null, defStyle: Int
             invalidate()
         }
 
+    constructor(context: Context, attrs: AttributeSet? = null) : this(context, attrs, 0)
+
     private val paint: Paint by lazy { Paint() }
 
     init {
@@ -49,7 +51,7 @@ class MoonPhaseView(context: Context, attrs: AttributeSet? = null, defStyle: Int
             Canvas.ALL_SAVE_FLAG
         )
         paint.isDither = true
-        paint.xfermode =  PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
 
         // 下面的这些计算跟mPhase的改变方式有关
         // 首先mPhase 是由CountDownTimer进行修改的
