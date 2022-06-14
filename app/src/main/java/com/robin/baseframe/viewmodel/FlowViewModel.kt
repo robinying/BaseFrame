@@ -17,6 +17,15 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class FlowViewModel : BaseViewModel() {
+    /*
+    * 在 Java 中用通配符 ? extends T 表示协变，extends 限制了父类型 T，其中 ? 表示未知类型，
+    * 比如 ? extends Number，只要传入的类型是 Number 或者 Number 的子类型都可以
+    *
+    *  在 Kotlin 中关键字 out T 表示协变，含义和 Java 一样
+    * */
+    //java List<? extends Number> list = new ArrayList<Integer>()
+    val numbers:MutableList<out Number> = ArrayList<Int>()
+
     val loadStatus: MutableLiveData<String> = MutableLiveData()
     val dataInt: MutableLiveData<Int> = MutableLiveData()
 

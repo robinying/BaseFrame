@@ -2,6 +2,7 @@ package com.robin.baseframe.ui.activity
 
 import android.Manifest
 import android.os.Bundle
+import android.view.View
 import com.permissionx.guolindev.PermissionX
 import com.robin.baseframe.app.base.BaseActivity
 import com.robin.baseframe.app.base.BaseViewModel
@@ -25,5 +26,16 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
                     toast("These permissions are denied: $deniedList")
                 }
             }
+        setLightStatusBar()
+    }
+
+    private fun setLightStatusBar() {
+        window.decorView.systemUiVisibility =
+            window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    private fun setDarkStatusBar() {
+        val flags = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.decorView.systemUiVisibility = flags xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 }
