@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/layout/fragment_flow.xml" value="0.14114583333333333" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_motion.xml" value="0.1515625" />
+        <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pop_up_window.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/fragment_scroll_view.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_storage.xml" value="0.1515625" />

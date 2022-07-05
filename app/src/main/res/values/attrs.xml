@@ -101,4 +101,8 @@
     <declare-styleable name="MoonPhaseView">
 
     </declare-styleable>
+
+    <declare-styleable name="NoPaddingTextView">
+        <attr name="removeDefaultPadding" format="boolean"/>
+    </declare-styleable>
 </resources>

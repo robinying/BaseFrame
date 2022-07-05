@@ -65,6 +65,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         binding.btFlow.onClick{
             nav().navigateAction(R.id.action_main_to_flowFragment)
         }
+        binding.btNotification.onClick{
+            nav().navigateAction(R.id.action_main_to_notificationFragment)
+        }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {
             LogUtils.debugInfo("$it")

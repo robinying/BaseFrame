@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="5dp"
+        android:theme="?attr/actionBarStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="LiveData Demo"
+        app:titleTextAppearance="@style/ToolbarTitle" />
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_normal_notification"
+        android:layout_width="104dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="普通通知"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:sCornersRadius="6dp"
+        app:sSelectorNormalColor="#3E99D2"
+        app:sSelectorPressedColor="#881A4A"
+        app:sStrokeWidth="1dp"
+        app:sUseSelector="true" />
+
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_high_notification"
+        android:layout_width="104dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="重要通知"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_normal_notification"
+        app:sCornersRadius="6dp"
+        app:sSelectorNormalColor="#3E99D2"
+        app:sSelectorPressedColor="#881A4A"
+        app:sStrokeWidth="1dp"
+        app:sUseSelector="true" />
+
+    <com.robin.baseframe.widget.SuperButton
+        android:id="@+id/bt_progress_notification"
+        android:layout_width="104dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="进度通知"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_high_notification"
+        app:sCornersRadius="6dp"
+        app:sSelectorNormalColor="#3E99D2"
+        app:sSelectorPressedColor="#881A4A"
+        app:sStrokeWidth="1dp"
+        app:sUseSelector="true" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,9 @@
 package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.event.SharedFlowBus
