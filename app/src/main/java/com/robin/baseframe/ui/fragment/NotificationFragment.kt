@@ -83,7 +83,7 @@ class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBin
             .setContentText("重要通知内容")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_eye))
-            .setAutoCancel(true)
+            .setAutoCancel(false)
             .setNumber(9) // 自定义桌面通知数量
             .addAction(R.drawable.ic_eye, "去看看", pendingIntent)// 通知上的操作
             .setCategory(NotificationCompat.CATEGORY_MESSAGE) // 通知类别，"勿扰模式"时系统会决定要不要显示你的通知

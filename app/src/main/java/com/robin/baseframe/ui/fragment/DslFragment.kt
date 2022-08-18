@@ -11,11 +11,18 @@ import com.robin.baseframe.databinding.FragmentDslBinding
 import com.robin.baseframe.app.ext.addTextChangedListenerClosure
 import com.robin.baseframe.app.ext.addTextChangedListenerDsl
 import com.robin.baseframe.app.ext.buildSpannableString
+import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.test.bind
+import com.robin.baseframe.widget.dialog.ADialog
+import com.robin.baseframe.widget.dialog.BDialog
+import com.robin.baseframe.widget.dialog.CDialog
+import com.robin.baseframe.widget.dialog.DialogChain
 
 class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
     private var timer: CountDownTimer? = null
+    private lateinit var mDialogChain: DialogChain
     override fun initView(savedInstanceState: Bundle?) {
+        createDialogChain()
         binding.et1.addTextChangedListenerDsl {
             afterTextChanged {
                 if (it.toString().length >= 4) {
@@ -39,6 +46,9 @@ class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
                 }
             }
         }
+        binding.btChainDialog.onClick{
+            mDialogChain.process()
+        }
         timer = object : CountDownTimer(30000, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.moonPhaseView.mPhase = (millisUntilFinished / 100).toInt()
@@ -56,5 +66,14 @@ class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
         super.onDestroy()
         timer?.cancel()
         timer = null
+    }
+
+    private fun createDialogChain(){
+        mDialogChain = DialogChain.create()
+            .attach(this)
+            .addInterceptor(ADialog(mActivity))
+            .addInterceptor(BDialog(mActivity))
+            .addInterceptor(CDialog(mActivity))
+            .build()
     }
 }

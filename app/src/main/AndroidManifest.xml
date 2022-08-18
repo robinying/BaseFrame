@@ -40,6 +40,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activity.WebViewActivity"
+            android:screenOrientation="portrait"/>
+
         <provider
             android:name="com.robin.baseframe.app.base.Ktx"
             android:authorities="${applicationId}.KtxInstaller"

@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.event.SharedFlowBus
+import com.robin.baseframe.app.ext.toast
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.data.bean.User
 import com.robin.baseframe.databinding.FragmentCountDownBinding
+import com.robin.baseframe.ext.countDown
 import com.robin.baseframe.viewmodel.CountDownViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 
 class CountDownFragment : BaseFragment<CountDownViewModel, FragmentCountDownBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
@@ -46,5 +50,32 @@ class CountDownFragment : BaseFragment<CountDownViewModel, FragmentCountDownBind
         SharedFlowBus.on(User::class.java).observe(viewLifecycleOwner) {
             LogUtils.debugInfo("get User info:${it.name}--${it.age}")
         }
+    }
+
+    fun startCountDown() {
+
+        var timeDownScope: CoroutineScope? = null
+
+        countDown(
+            time = 60,
+            start = {
+                timeDownScope = it
+                LogUtils.debugInfo("开始")
+
+            },
+            end = {
+                LogUtils.debugInfo("结速倒计时")
+                toast("结速倒计时")
+
+            },
+            next = {
+
+                LogUtils.debugInfo("当时计数：$it")
+
+                if (it == 50) {
+                    timeDownScope?.cancel()
+                }
+
+            })
     }
 }
