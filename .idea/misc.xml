@@ -20,10 +20,16 @@
         <entry key="..\:/mycode/BaseFrame/app/src/main/res/layout/popup_normal.xml" value="0.19635416666666666" />
         <entry key="..\:/mycode/BaseFrame/app/src/main/res/layout/rv_header.xml" value="0.1921875" />
         <entry key="..\:/mycode/BaseFrame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2125" />
+        <entry key="app/src/main/res/drawable/ic_cellular_unable.xml" value="0.1435" />
+        <entry key="app/src/main/res/drawable/ic_images.xml" value="0.1435" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/popup_grey_bg.xml" value="0.1715" />
         <entry key="app/src/main/res/drawable/popup_item_bg.xml" value="0.3115" />
         <entry key="app/src/main/res/drawable/shape_icon.xml" value="0.151" />
         <entry key="app/src/main/res/layout/card_item.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/layout/dialog_a.xml" value="0.1453125" />
+        <entry key="app/src/main/res/layout/dialog_b.xml" value="0.1453125" />
+        <entry key="app/src/main/res/layout/dialog_c.xml" value="0.1453125" />
         <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.20471014492753623" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_coordinator.xml" value="0.196875" />
@@ -36,10 +42,13 @@
         <entry key="app/src/main/res/layout/fragment_pop_up_window.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/fragment_scroll_view.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_storage.xml" value="0.1515625" />
+        <entry key="app/src/main/res/layout/fragment_wallpaper.xml" value="0.14583333333333334" />
+        <entry key="app/src/main/res/layout/fragment_webview.xml" value="0.1453125" />
         <entry key="app/src/main/res/layout/item_demo_str.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/layout/item_popup_view.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/popup_demo.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/popup_rv.xml" value="0.1625" />
+        <entry key="app/src/main/res/xml/my_wallpaper.xml" value="0.14583333333333334" />
       </map>
     </option>
   </component>

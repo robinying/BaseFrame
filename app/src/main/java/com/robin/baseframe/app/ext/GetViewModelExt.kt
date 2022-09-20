@@ -16,7 +16,6 @@ import java.lang.reflect.ParameterizedType
  */
 @Suppress("UNCHECKED_CAST")
 fun <VM> getVmClazz(obj: Any): VM {
-    android.util.Log.d("yubinTest","arg:"+(obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0])
     return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as VM
 }
 
