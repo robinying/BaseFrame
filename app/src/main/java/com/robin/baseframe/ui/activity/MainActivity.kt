@@ -3,10 +3,13 @@ package com.robin.baseframe.ui.activity
 import android.Manifest
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import com.permissionx.guolindev.PermissionX
+import com.robin.baseframe.R
 import com.robin.baseframe.app.base.BaseActivity
 import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.ext.toast
+import com.robin.baseframe.app.util.StatusBarUtils
 import com.robin.baseframe.databinding.ActivityMainBinding
 
 
@@ -26,7 +29,9 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
                     toast("These permissions are denied: $deniedList")
                 }
             }
-        setLightStatusBar()
+        //setLightStatusBar()
+        StatusBarUtils.setColor(this, resources.getColor(R.color.md_amber_A200))
+        StatusBarUtils.immersive(this)
     }
 
     private fun setLightStatusBar() {
