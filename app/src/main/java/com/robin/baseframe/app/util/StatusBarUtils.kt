@@ -17,8 +17,8 @@ import java.lang.reflect.Field
  * 状态栏透明,状态栏黑色文字，状态栏颜色，沉浸式状态栏
  */
 object StatusBarUtils {
-    var DEFAULT_COLOR = 0
-    var DEFAULT_ALPHA = 0f
+    private var DEFAULT_COLOR = 0
+    private var DEFAULT_ALPHA = 0f
 
     /**
      * 设置状态栏背景颜色
@@ -35,7 +35,7 @@ object StatusBarUtils {
             val lp: ViewGroup.LayoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity))
             statusBarView.setBackgroundColor(color)
-            systemContent.getChildAt(0).setFitsSystemWindows(true)
+            systemContent.getChildAt(0).fitsSystemWindows = true
             systemContent.addView(statusBarView, 0, lp)
         }
     }
@@ -65,7 +65,7 @@ object StatusBarUtils {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = mixtureColor(color, alpha)
-            var systemUiVisibility: Int = window.decorView.getSystemUiVisibility()
+            var systemUiVisibility: Int = window.decorView.systemUiVisibility
             systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.decorView.setSystemUiVisibility(systemUiVisibility)
