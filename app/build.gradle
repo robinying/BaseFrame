@@ -15,6 +15,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
     }
 
     buildTypes {
@@ -30,6 +35,15 @@ android {
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
+            jni {
+                srcDirs 'src/main/jni', 'src/main/cpp'
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
         }
     }
     composeOptions {
@@ -45,6 +59,16 @@ android {
         dataBinding = true
         viewBinding = true
         compose = true
+    }
+}
+
+task checkJetifierAll(group: "verification") { }
+
+subprojects { project ->
+    project.tasks.whenTaskAdded { task ->
+        if (task.name == "checkJetifier") {
+            checkJetifierAll.dependsOn(task)
+        }
     }
 }
 

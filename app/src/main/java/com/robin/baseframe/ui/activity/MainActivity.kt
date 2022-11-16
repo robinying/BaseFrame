@@ -11,6 +11,7 @@ import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.ext.toast
 import com.robin.baseframe.app.util.StatusBarUtils
 import com.robin.baseframe.databinding.ActivityMainBinding
+import com.robin.baseframe.test.DemoJni
 
 
 class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
@@ -32,6 +33,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         //setLightStatusBar()
         StatusBarUtils.setColor(this, resources.getColor(R.color.md_amber_A200))
         StatusBarUtils.immersive(this)
+        DemoJni().sayHi()
     }
 
     private fun setLightStatusBar() {
