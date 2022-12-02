@@ -21,4 +21,6 @@ class DemoJni {
     }
 
     external fun sayHi()
+
+    external fun accessField()
 }
