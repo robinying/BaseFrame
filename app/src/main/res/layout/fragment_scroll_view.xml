@@ -3,6 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/web_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <com.robin.baseframe.widget.NestedOverScrollLayout
         android:id="@+id/scroll_layout"
         android:layout_width="match_parent"

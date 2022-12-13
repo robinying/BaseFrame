@@ -10,3 +10,4 @@ dependencyResolutionManagement {
 rootProject.name = "BaseFrame"
 include ':app'
 include ':anylayer'
+include ':module_web'

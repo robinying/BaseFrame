@@ -27,6 +27,7 @@ import com.robin.baseframe.service.RemoteService
 import com.robin.baseframe.test.Test
 import com.robin.baseframe.viewmodel.MainViewModel
 
+
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     private val data = intArrayOf(10, 3, 4, 2, 5, 42, 32, 8)
     private var mIApiCallback: IApiCallBack? = null
@@ -87,6 +88,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         }
         bindService()
         bindRemoteService()
+
     }
 
 
