@@ -4,6 +4,7 @@ import android.os.Looper
 import androidx.multidex.MultiDex
 import com.robin.baseframe.app.base.BaseApp
 import com.robin.baseframe.app.ext.util.openLog
+import com.robin.baseframe.app.util.PageStack
 import com.robin.baseframe.widget.webview.WebViewManager
 import com.robin.module_web.WebViewPool
 import per.goweii.anylayer.AnyLayer
@@ -25,5 +26,6 @@ class App : BaseApp() {
         // 根据手机 CPU 核心数（或者手机内存等条件）设置缓存池容量
         WebViewPool.getInstance().setMaxPoolSize(min(Runtime.getRuntime().availableProcessors(), 3))
         WebViewPool.getInstance().init(applicationContext)
+        registerActivityLifecycleCallbacks(PageStack)
     }
 }
