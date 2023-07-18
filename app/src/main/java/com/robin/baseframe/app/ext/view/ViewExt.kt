@@ -280,10 +280,10 @@ fun View.onVisibilityChange(
     viewTreeObserver.addOnWindowFocusChangeListener(focusChangeListener)
     // 为避免内存泄漏，当视图被移出的同时反注册监听器
     addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-        override fun onViewAttachedToWindow(v: View?) {
+        override fun onViewAttachedToWindow(v: View) {
         }
 
-        override fun onViewDetachedFromWindow(v: View?) {
+        override fun onViewDetachedFromWindow(v: View) {
             v ?: return
             // 有时候 View detach 后，还会执行全局重绘，为此退后反注册
             post {

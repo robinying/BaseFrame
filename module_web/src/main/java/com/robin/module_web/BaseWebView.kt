@@ -61,6 +61,7 @@ class BaseWebView @JvmOverloads constructor(
                 source.lifecycle.removeObserver(this)
                 onDestroy()
             }
+            else ->{}
         }
     }
 

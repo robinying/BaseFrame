@@ -202,10 +202,12 @@ fun RecyclerView.onItemVisibilityChange(
     addOnScrollListener(scrollListener)
     // 避免内存泄漏，当列表被移除时，反注册监听器
     addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-        override fun onViewAttachedToWindow(v: View?) {
+
+        override fun onViewAttachedToWindow(v: View) {
+
         }
 
-        override fun onViewDetachedFromWindow(v: View?) {
+        override fun onViewDetachedFromWindow(v: View) {
             if (v == null || v !is RecyclerView) return
             v.removeOnScrollListener(scrollListener)
             removeOnAttachStateChangeListener(this)
@@ -236,10 +238,10 @@ fun ViewPager2.addOnPageVisibilityChangeListener(block: (index: Int, isVisible: 
     registerOnPageChangeCallback(listener)
     // 避免内存泄漏
     addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-        override fun onViewAttachedToWindow(v: View?) {
+        override fun onViewAttachedToWindow(v: View) {
         }
 
-        override fun onViewDetachedFromWindow(v: View?) {
+        override fun onViewDetachedFromWindow(v: View) {
             if (v == null || v !is ViewPager2) return
             if (ViewCompat.isAttachedToWindow(v)) {
                 v.unregisterOnPageChangeCallback(listener)

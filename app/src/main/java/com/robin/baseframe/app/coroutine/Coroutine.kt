@@ -129,6 +129,7 @@ class Coroutine<T>(
         return job.invokeOnCompletion(handler)
     }
 
+    //等待任务执行完成
     private fun executeInternal(
         context: CoroutineContext,
         block: suspend CoroutineScope.() -> T

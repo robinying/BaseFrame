@@ -60,9 +60,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         binding.btPopUp.onClick {
             nav().navigateAction(R.id.action_main_to_popupWindowFragment)
         }
-        binding.btCompose.onClick {
-            nav().navigateAction(R.id.action_main_to_composeFragment)
-        }
+//        binding.btCompose.onClick {
+//            nav().navigateAction(R.id.action_main_to_composeFragment)
+//        }
         binding.btFlow.onClick{
             nav().navigateAction(R.id.action_main_to_flowFragment)
         }

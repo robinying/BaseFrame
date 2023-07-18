@@ -126,6 +126,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_main_to_notificationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_main_to_popupWindowFragment">
                               <value>
                                 <LayoutPositions />
@@ -153,6 +158,18 @@
                           <Point>
                             <option name="x" value="349" />
                             <option name="y" value="-103" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="notificationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
