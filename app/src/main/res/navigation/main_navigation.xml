@@ -75,6 +75,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_main_to_behaviorFragment"
+            app:destination="@id/behaviorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
 <!--        <action-->
 <!--            android:id="@+id/action_main_to_composeFragment"-->
 <!--            app:destination="@id/composeFragment"-->
@@ -167,4 +175,10 @@
         android:name="com.robin.baseframe.ui.fragment.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification"/>
+
+    <fragment
+        android:id="@+id/behaviorFragment"
+        android:name="com.robin.baseframe.ui.fragment.BehaviorFragment"
+        android:label="BehaviorFragment"
+        tools:layout="@layout/fragement_behavior"/>
 </navigation>

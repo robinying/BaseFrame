@@ -102,6 +102,14 @@
 
     </declare-styleable>
 
+    <declare-styleable name="QQBubbleView">
+        <attr name="bubble_text" format="string"/>
+        <attr name="bubble_textSize" format="dimension"/>
+        <attr name="bubble_textColor" format="color"/>
+        <attr name="bubble_radius" format="dimension"/>
+        <attr name="bubble_color" format="color"/>
+    </declare-styleable>
+
     <declare-styleable name="NoPaddingTextView">
         <attr name="removeDefaultPadding" format="boolean"/>
     </declare-styleable>
@@ -117,4 +125,5 @@
         <attr name="bottomRight" format="dimension" />
         <attr name="bottomLeft" format="dimension" />
     </declare-styleable>
+
 </resources>
