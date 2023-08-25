@@ -1,10 +1,14 @@
 package com.robin.baseframe.camera
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.media.MediaRecorder
+import androidx.annotation.RequiresPermission
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.robin.baseframe.app.util.LogUtils
@@ -48,7 +52,6 @@ class CameraXController {
             //录制视频对象
             mVideoCapture = VideoCapture.Builder()
                 .setTargetAspectRatio(screenAspectRatio)
-                .setAudioRecordSource(MediaRecorder.AudioSource.MIC) //设置音频源麦克风
                 //视频帧率
                 .setVideoFrameRate(30)
                 //bit率
@@ -137,6 +140,7 @@ class CameraXController {
 
 
     // 开始录制
+    @RequiresPermission("android.permission.RECORD_AUDIO")
     fun startCameraRecord(outFile: File) {
         mVideoCapture ?: return
 

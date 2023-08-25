@@ -9,18 +9,18 @@ import java.io.File
 
 class CameraXActionImpl :ICameraAction {
 
-    private var mVecordFile: File? = null // 输出的文件
+    private var mVideoRecordFile: File? = null // 输出的文件
     private lateinit var mContext: Context
     private val mCameraCallback: ICameraCallback? = null
     private val cameraXController: CameraXController = CameraXController()
     private lateinit var mPreviewView: PreviewView
 
     override fun setOutFile(file: File) {
-        mVecordFile = file
+        mVideoRecordFile = file
     }
 
     override fun getOutFile(): File {
-        return mVecordFile!!
+        return mVideoRecordFile!!
     }
 
     override fun initCamera(context: Context): View {
