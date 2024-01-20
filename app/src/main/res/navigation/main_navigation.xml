@@ -106,6 +106,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_main_to_cameraFragment"
+            app:destination="@id/cameraFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -181,4 +189,10 @@
         android:name="com.robin.baseframe.ui.fragment.BehaviorFragment"
         android:label="BehaviorFragment"
         tools:layout="@layout/fragement_behavior"/>
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.robin.baseframe.ui.fragment.CameraFragment"
+        android:label="CameraFragment"
+        tools:layout="@layout/fragment_camera"/>
 </navigation>

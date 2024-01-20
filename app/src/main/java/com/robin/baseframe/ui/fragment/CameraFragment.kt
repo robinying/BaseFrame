@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Size
 import android.view.SoundEffectConstants
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -16,15 +17,18 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.camera.core.*
+import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.ToastUtils
 import com.robin.baseframe.R
 import com.robin.baseframe.app.base.BaseFragment
 import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.ext.contentResolver
 import com.robin.baseframe.app.ext.nav
+import com.robin.baseframe.camera.QrCodeAnalyzer
 import com.robin.baseframe.databinding.FragmentCameraBinding
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -37,6 +41,7 @@ class CameraFragment : BaseFragment<BaseViewModel, FragmentCameraBinding>() {
     private var mVideoCapture: VideoCapture? = null
     private var bitmap: Bitmap? = null
     private var isTakePhoto = false
+    private var mQrResult: String? = null
     override fun initView(savedInstanceState: Bundle?) {
         cameraExecutor = Executors.newSingleThreadExecutor()
         if (allPermissionsGranted()) {
@@ -48,7 +53,12 @@ class CameraFragment : BaseFragment<BaseViewModel, FragmentCameraBinding>() {
         }
         binding.viewFinder.setOnTouchListener { v, event ->
             val action =
-                FocusMeteringAction.Builder(binding.viewFinder.meteringPointFactory.createPoint(event.x, event.y))
+                FocusMeteringAction.Builder(
+                    binding.viewFinder.meteringPointFactory.createPoint(
+                        event.x,
+                        event.y
+                    )
+                )
                     .build()
             showTapView(event.x.toInt(), event.y.toInt())
             mCamera?.cameraControl?.startFocusAndMetering(action)
@@ -95,7 +105,11 @@ class CameraFragment : BaseFragment<BaseViewModel, FragmentCameraBinding>() {
     }
 
     @SuppressLint("RestrictedApi")
-    private fun bindPreview(cameraProvider: ProcessCameraProvider, isBack: Boolean, isVideo: Boolean) {
+    private fun bindPreview(
+        cameraProvider: ProcessCameraProvider,
+        isBack: Boolean,
+        isVideo: Boolean
+    ) {
         mImageCapture = ImageCapture.Builder()
             .setTargetRotation(binding.viewFinder.display.rotation)
             .build()
@@ -105,19 +119,33 @@ class CameraFragment : BaseFragment<BaseViewModel, FragmentCameraBinding>() {
             .setBitRate(3 * 1024 * 1024)
             .build()
         //切换前后摄像头
-        val cameraSelector = if (isBack) CameraSelector.DEFAULT_BACK_CAMERA else CameraSelector.DEFAULT_FRONT_CAMERA
+        val cameraSelector =
+            if (isBack) CameraSelector.DEFAULT_BACK_CAMERA else CameraSelector.DEFAULT_FRONT_CAMERA
         try {
             cameraProvider.unbindAll()
-            mCamera = if(isVideo){
+            mCamera = if (isVideo) {
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, mPreview, mVideoCapture
                 )
-            }else{
+            } else {
+                val imageAnalysis =
+                    ImageAnalysis.Builder().setTargetResolution(
+                        Size(
+                            binding.viewFinder.width,
+                            binding.viewFinder.height
+                        )
+                    ).setBackpressureStrategy(
+                        STRATEGY_KEEP_ONLY_LATEST//保留最新的帧
+                    ).build()
+                imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(requireContext()),
+                    QrCodeAnalyzer { result ->
+                        mQrResult = result
+                        ToastUtils.showLong(mQrResult?:"is Empty")
+                    })
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, mPreview, mImageCapture
+                    this, cameraSelector,imageAnalysis, mPreview, mImageCapture
                 )
             }
-
         } catch (exc: Exception) {
             Log.e(TAG, "Use case binding failed", exc)
         }
