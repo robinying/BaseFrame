@@ -74,3 +74,4 @@ lib_opencv/build
 
 app/.cxx
 app/build
+.idea/deploymentTargetDropDown.xml

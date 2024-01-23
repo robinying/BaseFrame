@@ -69,6 +69,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         binding.btNotification.onClick{
             nav().navigateAction(R.id.action_main_to_notificationFragment)
         }
+        binding.btCamera.onClick{
+            nav().navigateAction(R.id.action_main_to_cameraFragment)
+        }
         Test.quickSort(data, 0, data.size - 1)
         data.forEach {
             LogUtils.debugInfo("$it")

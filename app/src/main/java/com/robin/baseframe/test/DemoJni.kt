@@ -23,4 +23,10 @@ class DemoJni {
     external fun sayHi()
 
     external fun accessField()
+
+     fun callFromJava() {
+         Log.d("robinTest","call from java")
+     }
+
+    external fun test()
 }

@@ -1,6 +1,7 @@
 #include <android/log.h>
 #include <jni.h>
 #include <string>
+#include <vector>
 
 #define TAG "HelloJNI"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
@@ -13,6 +14,7 @@ Java_com_robin_baseframe_test_DemoJni_sayHi(JNIEnv *env, jobject thiz) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_robin_baseframe_test_DemoJni_accessField(JNIEnv *env, jobject thiz) {
+    // 找到类
    jclass clz = env->GetObjectClass(thiz);
     jfieldID sFieldId = env->GetStaticFieldID(clz, "sName", "Ljava/lang/String;");
     // 访问静态字段
@@ -25,4 +27,17 @@ Java_com_robin_baseframe_test_DemoJni_accessField(JNIEnv *env, jobject thiz) {
         // 释放资源
         env->ReleaseStringUTFChars(jStr, sStr);
     }
+    //找到方法
+    jmethodID mid = env->GetMethodID(clz, "callFromJava", "()V");
+
+    // 调用 Java 方法
+    env->CallVoidMethod(thiz, mid);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_robin_baseframe_test_DemoJni_test(JNIEnv *env, jobject thiz) {
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    std::string result = "Vector size: " + std::to_string(nums.size());
+    LOGD("test",result.c_str());
 }

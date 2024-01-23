@@ -56,14 +56,14 @@ object WebUtils {
         // 设置缓存模式
         webView.settings.cacheMode = WebSettings.LOAD_DEFAULT
         // 开启 Application Caches 功能
-        webView.settings.setAppCacheEnabled(true)
+        webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         // 设置 Application Caches 缓存目录
-        val cachePath = getWebViewCachePath(context)
-        val cacheDir = File(cachePath)
-        // 设置缓存目录
-        if (!cacheDir.exists() && !cacheDir.isDirectory) {
-            cacheDir.mkdirs()
-        }
-        webView.settings.setAppCachePath(cachePath)
+//        val cachePath = getWebViewCachePath(context)
+//        val cacheDir = File(cachePath)
+//        // 设置缓存目录
+//        if (!cacheDir.exists() && !cacheDir.isDirectory) {
+//            cacheDir.mkdirs()
+//        }
+//        webView.settings.setAppCachePath(cachePath)
     }
 }
