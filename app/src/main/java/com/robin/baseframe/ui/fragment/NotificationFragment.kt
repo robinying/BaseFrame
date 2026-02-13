@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.robin.baseframe.R
@@ -33,14 +34,17 @@ class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBin
         binding.btNormalNotification.onClick {
             createNotificationForNormal()
         }
-        binding.btHighNotification.onClick{
-            createNotificationForHigh()
+        binding.btHighNotification.onClick {
+            Handler().postDelayed({
+                createNotificationForHigh()
+            }, 10000)
+
         }
-        binding.btProgressNotification.onClick{
+        binding.btProgressNotification.onClick {
             createNotificationForProgress()
             binding.btProgressNotification.postDelayed({
                 updateNotificationForProgress()
-            },3000)
+            }, 3000)
         }
     }
 
@@ -76,6 +80,7 @@ class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBin
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(mHighChannelId, mHighChannelName, NotificationManager.IMPORTANCE_HIGH)
             channel.setShowBadge(true)
+            channel.enableLights(true)
             mManager?.createNotificationChannel(channel)
         }
         mBuilder = NotificationCompat.Builder(mActivity, mHighChannelId)
@@ -92,10 +97,14 @@ class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBin
         mManager?.notify(mHighNotificationId, mBuilder?.build())
     }
 
-    private fun createNotificationForProgress(){
+    private fun createNotificationForProgress() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
-                NotificationChannel(mProgressChannelId, mProgressChannelName, NotificationManager.IMPORTANCE_HIGH).apply {
+                NotificationChannel(
+                    mProgressChannelId,
+                    mProgressChannelName,
+                    NotificationManager.IMPORTANCE_HIGH
+                ).apply {
                     description = "描述"
                     setShowBadge(true) // 是否在桌面显示角标
                 }
@@ -115,7 +124,7 @@ class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBin
     }
 
     private fun updateNotificationForProgress() {
-        if (mBuilder!=null) {
+        if (mBuilder != null) {
             val progressMax = 100
             val progressCurrent = 50
             // 1.更新进度

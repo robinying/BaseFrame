@@ -1,6 +1,6 @@
 package com.robin.baseframe.app.network
 
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager
+//import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
@@ -35,7 +35,7 @@ abstract class BaseNetworkApi {
      */
     private val okHttpClient: OkHttpClient
         get() {
-            var builder = RetrofitUrlManager.getInstance().with(OkHttpClient.Builder())
+            var builder = OkHttpClient.Builder()
             builder = setHttpClientBuilder(builder)
             return builder.build()
         }

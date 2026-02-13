@@ -44,9 +44,9 @@ class RemoteObserverService : Service() {
                                 e.printStackTrace()
                             }
                         }
-                        mCallbacks.finishBroadcast()
                         i++
                     }
+                    mCallbacks.finishBroadcast()
                 }
             }
             super.handleMessage(msg)

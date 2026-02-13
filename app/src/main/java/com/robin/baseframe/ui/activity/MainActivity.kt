@@ -38,6 +38,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() ,IOneFra
         StatusBarUtils.immersive(this)
         DemoJni().sayHi()
         DemoJni().accessField()
+
     }
 
     private fun setLightStatusBar() {

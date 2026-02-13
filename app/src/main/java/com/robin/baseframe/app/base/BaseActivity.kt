@@ -14,7 +14,6 @@ import com.robin.baseframe.app.ext.dismissLoadingExt
 import com.robin.baseframe.app.ext.getAppViewModel
 import com.robin.baseframe.app.ext.getVmClazz
 import com.robin.baseframe.app.ext.showLoadingExt
-import me.jessyan.autosize.AutoSizeCompat
 
 abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatActivity(){
 
@@ -106,7 +105,6 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
         if (Looper.myLooper() != Looper.getMainLooper()) {
             return super.getResources()
         }
-        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())
         return super.getResources()
     }
 }
