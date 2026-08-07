@@ -2,14 +2,20 @@ package com.robin.baseframe.app.event
 
 import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.app.callback.livedata.event.EventLiveData
+import com.robin.baseframe.base.arch.EmptyUiEffect
+import com.robin.baseframe.base.arch.EmptyUiEvent
+import com.robin.baseframe.base.arch.EmptyUiState
 
 /**
  * 作者　: hegaojian
  * 时间　: 2019/5/2
  * 描述　:APP全局的ViewModel，可以在这里发送全局通知替代EventBus，LiveDataBus等
  */
-class EventViewModel : BaseViewModel() {
+class EventViewModel : BaseViewModel<EmptyUiState, EmptyUiEvent, EmptyUiEffect>(EmptyUiState()) {
 
+    override fun onEvent(event: EmptyUiEvent) {
+        // 全局事件 ViewModel，无页面事件
+    }
 
     //添加TODO通知
     val todoEvent = EventLiveData<Boolean>()

@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import com.blankj.utilcode.util.ToastUtils
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.app.util.KeyBoardUtils
 import com.robin.baseframe.databinding.FragmentDslBinding
 import com.robin.baseframe.app.ext.addTextChangedListenerClosure
@@ -18,7 +17,7 @@ import com.robin.baseframe.widget.dialog.BDialog
 import com.robin.baseframe.widget.dialog.CDialog
 import com.robin.baseframe.widget.dialog.DialogChain
 
-class DslFragment : BaseFragment<BaseViewModel, FragmentDslBinding>() {
+class DslFragment : BaseViewFragment<FragmentDslBinding>() {
     private var timer: CountDownTimer? = null
     private lateinit var mDialogChain: DialogChain
     override fun initView(savedInstanceState: Bundle?) {

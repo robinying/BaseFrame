@@ -7,12 +7,11 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.databinding.FragmentWallpaperBinding
 import com.robin.baseframe.service.MyWallpaperService
 
-class WallpaperFragment : BaseFragment<BaseViewModel, FragmentWallpaperBinding>() {
+class WallpaperFragment : BaseViewFragment<FragmentWallpaperBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
 
     }

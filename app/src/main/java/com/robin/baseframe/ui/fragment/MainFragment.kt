@@ -15,7 +15,8 @@ import com.robin.aidldemo.IApiCallBack
 import com.robin.aidldemo.IRemoteService
 import com.robin.aidldemo.IRemoteServiceCallBack
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.ext.nav
 import com.robin.baseframe.app.ext.navigateAction
 import com.robin.baseframe.app.ext.showDialogFragment
@@ -28,7 +29,7 @@ import com.robin.baseframe.test.Test
 import com.robin.baseframe.viewmodel.MainViewModel
 
 
-class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
+class MainFragment : LegacyBaseFragment<MainViewModel, FragmentMainBinding>() {
     private val data = intArrayOf(10, 3, 4, 2, 5, 42, 32, 8)
     private var mIApiCallback: IApiCallBack? = null
     private var mObserverService: IRemoteService? = null

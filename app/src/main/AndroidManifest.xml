@@ -59,6 +59,8 @@
         <activity android:name=".ui.activity.WebViewActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".ui.example.ExampleActivity" />
+
         <provider
             android:name="com.robin.baseframe.app.base.Ktx"
             android:authorities="${applicationId}.KtxInstaller"

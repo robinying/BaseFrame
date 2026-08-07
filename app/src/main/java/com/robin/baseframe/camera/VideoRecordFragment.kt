@@ -1,13 +1,12 @@
 package com.robin.baseframe.camera
 
-import android.content.ComponentName
 import android.os.Bundle
 import android.os.Handler
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.databinding.FragmentVideoRecordBinding
 
-class VideoRecordFragment:BaseFragment<BaseViewModel,FragmentVideoRecordBinding>() {
+class VideoRecordFragment : LegacyBaseFragment<LegacyViewModel, FragmentVideoRecordBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         var handler = Handler()

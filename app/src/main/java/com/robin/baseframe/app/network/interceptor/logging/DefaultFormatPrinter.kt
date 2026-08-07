@@ -31,7 +31,7 @@ class DefaultFormatPrinter : FormatPrinter{
         LogUtils.debugInfo(tag, REQUEST_UP_LINE)
         logLines(
             tag,
-            arrayOf(URL_TAG + request.url()),
+            arrayOf(URL_TAG + request.url),
             false
         )
         logLines(
@@ -57,7 +57,7 @@ class DefaultFormatPrinter : FormatPrinter{
         LogUtils.debugInfo(tag, REQUEST_UP_LINE)
         logLines(
             tag,
-            arrayOf(URL_TAG + request.url()),
+            arrayOf(URL_TAG + request.url),
             false
         )
         logLines(
@@ -285,9 +285,9 @@ class DefaultFormatPrinter : FormatPrinter{
 
         private fun getRequest(request: Request): Array<String?> {
             val log: String
-            val header = request.headers().toString()
+            val header = request.headers.toString()
             log =
-                METHOD_TAG + request.method() + DOUBLE_SEPARATOR +
+                METHOD_TAG + request.method + DOUBLE_SEPARATOR +
                         if (isEmpty(header)) "" else HEADERS_TAG + LINE_SEPARATOR + dotHeaders(
                             header
                         )

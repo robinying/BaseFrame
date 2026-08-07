@@ -2,12 +2,11 @@ package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.databinding.FragmentMotionBinding
 
-class MotionFragment : BaseFragment<BaseViewModel, FragmentMotionBinding>() {
+class MotionFragment : BaseViewFragment<FragmentMotionBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding.motionLayout.addTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(

@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.robin.baseframe.app.base.BaseFragment
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.event.SharedFlowBus
 import com.robin.baseframe.app.ext.toast
 import com.robin.baseframe.app.ext.view.onClick
@@ -17,7 +18,7 @@ import com.robin.baseframe.viewmodel.CountDownViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 
-class CountDownFragment : BaseFragment<CountDownViewModel, FragmentCountDownBinding>() {
+class CountDownFragment : LegacyBaseFragment<CountDownViewModel, FragmentCountDownBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding.btStart.onClick {
             mViewModel.globalLiveData.cancelCount()

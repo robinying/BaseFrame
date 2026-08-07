@@ -3,7 +3,7 @@ package com.robin.baseframe.viewmodel
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.data.bean.Banner
 import com.robin.baseframe.data.bean.Channel
@@ -16,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class FlowViewModel : BaseViewModel() {
+class FlowViewModel : LegacyViewModel() {
     /*
     * 在 Java 中用通配符 ? extends T 表示协变，extends 限制了父类型 T，其中 ? 表示未知类型，
     * 比如 ? extends Number，只要传入的类型是 Number 或者 Number 的子类型都可以

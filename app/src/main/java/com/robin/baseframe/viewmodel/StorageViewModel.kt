@@ -4,7 +4,7 @@ import android.content.ContentUris
 import android.media.Image
 import android.provider.MediaStore
 import androidx.lifecycle.viewModelScope
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.base.Ktx
 import com.robin.baseframe.app.base.appContext
 import com.robin.baseframe.app.util.LogUtils
@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StorageViewModel : BaseViewModel() {
+class StorageViewModel : LegacyViewModel() {
 
     fun scanMediaFiles() {
         viewModelScope.launch {

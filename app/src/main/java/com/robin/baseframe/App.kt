@@ -7,9 +7,11 @@ import com.robin.baseframe.app.ext.util.openLog
 import com.robin.baseframe.app.util.PageStack
 import com.robin.baseframe.widget.webview.WebViewManager
 import com.robin.module_web.WebViewPool
+import dagger.hilt.android.HiltAndroidApp
 import per.goweii.anylayer.AnyLayer
 import java.lang.Integer.min
 
+@HiltAndroidApp
 class App : BaseApp() {
 
     override fun onCreate() {

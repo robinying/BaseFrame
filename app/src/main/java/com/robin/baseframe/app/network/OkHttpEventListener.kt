@@ -15,7 +15,7 @@ class OkHttpEventListener : EventListener() {
         okhttpEvent.dnsStartTime = System.currentTimeMillis()
     }
 
-    override fun dnsEnd(call: Call, domainName: String, inetAddressList: MutableList<InetAddress>) {
+    override fun dnsEnd(call: Call, domainName: String, inetAddressList: List<InetAddress>) {
         super.dnsEnd(call, domainName, inetAddressList)
         okhttpEvent.dnsEndTime = System.currentTimeMillis()
     }

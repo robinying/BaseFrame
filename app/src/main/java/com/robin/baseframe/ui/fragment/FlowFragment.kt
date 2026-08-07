@@ -2,11 +2,12 @@ package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.robin.baseframe.app.base.BaseFragment
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.databinding.FragmentFlowBinding
 import com.robin.baseframe.viewmodel.FlowViewModel
 
-class FlowFragment : BaseFragment<FlowViewModel, FragmentFlowBinding>() {
+class FlowFragment : LegacyBaseFragment<FlowViewModel, FragmentFlowBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
 
     }

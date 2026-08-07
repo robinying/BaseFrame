@@ -11,14 +11,13 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.app.ext.util.notificationManager
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.databinding.FragmentNotificationBinding
 import com.robin.baseframe.ui.activity.MainActivity
 
-class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBinding>() {
+class NotificationFragment : BaseViewFragment<FragmentNotificationBinding>() {
     private val mNormalChannelId = "normal_channel"
     private val mNormalChannelName = "normal_name"
     private val mNormalNotificationId = 100

@@ -9,15 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.ext.toast
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.databinding.FragmentPopUpWindowBinding
 import com.robin.baseframe.ui.adapter.PopupAdapter
 import com.robin.baseframe.widget.popup.PopWindow
 
-class PopupWindowFragment : BaseFragment<BaseViewModel, FragmentPopUpWindowBinding>(), PopWindow.ViewInterface {
+class PopupWindowFragment : LegacyBaseFragment<LegacyViewModel, FragmentPopUpWindowBinding>(), PopWindow.ViewInterface {
     private var mPopUpWindow: PopWindow? = null
     private var mPopDownWindow: PopWindow? = null
     private var mPopLeftWindow: PopWindow? = null

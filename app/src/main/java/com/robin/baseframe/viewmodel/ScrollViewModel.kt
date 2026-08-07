@@ -1,9 +1,9 @@
 package com.robin.baseframe.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.LegacyViewModel
 
-class ScrollViewModel : BaseViewModel() {
+class ScrollViewModel : LegacyViewModel() {
     val itemListData = MutableLiveData<ArrayList<String>>()
 
     fun getData() {

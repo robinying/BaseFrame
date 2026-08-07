@@ -1,12 +1,12 @@
 package com.robin.baseframe.viewmodel
 
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.util.LogUtils
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.SoftReference
 import java.lang.ref.WeakReference
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel : LegacyViewModel() {
 
     //回收
     fun testReference() {

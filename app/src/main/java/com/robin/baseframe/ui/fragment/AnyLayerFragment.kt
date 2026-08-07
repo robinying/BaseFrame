@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.app.ext.view.clickNoRepeat
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
@@ -19,7 +18,7 @@ import per.goweii.anylayer.guide.GuideLayer.Mapping
 import per.goweii.anylayer.popup.PopupLayer
 import per.goweii.anylayer.widget.SwipeLayout
 
-class AnyLayerFragment : BaseFragment<BaseViewModel, FragmentAnyLayerBinding>() {
+class AnyLayerFragment : BaseViewFragment<FragmentAnyLayerBinding>() {
     private var mPopup: DialogLayer? = null
     override fun initView(savedInstanceState: Bundle?) {
         binding.btDrag.clickNoRepeat {

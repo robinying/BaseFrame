@@ -2,13 +2,14 @@ package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import com.robin.baseframe.app.base.BaseFragment
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.databinding.FragmentStorageBinding
 import com.robin.baseframe.viewmodel.StorageViewModel
 
-class StorageFragment : BaseFragment<StorageViewModel, FragmentStorageBinding>() {
+class StorageFragment : LegacyBaseFragment<StorageViewModel, FragmentStorageBinding>() {
     private val requestDataLauncher =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { result ->
             if (result != null) {

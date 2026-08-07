@@ -6,14 +6,17 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.robin.baseframe.R
-import com.robin.baseframe.app.coroutine.Coroutine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-
+/**
+ * 基础 DialogFragment — 不依赖 ViewModel。
+ * 需要 MVVM+UDF 的弹窗，子类自行使用 @AndroidEntryPoint + Hilt。
+ */
 abstract class BaseDialogFragment(@LayoutRes layoutID: Int) : DialogFragment(layoutID),
     CoroutineScope by MainScope() {
 
@@ -31,7 +34,6 @@ abstract class BaseDialogFragment(@LayoutRes layoutID: Int) : DialogFragment(lay
 
     override fun show(manager: FragmentManager, tag: String?) {
         kotlin.runCatching {
-            //在每个add事务前增加一个remove事务，防止连续的add
             manager.beginTransaction().remove(this).commit()
             super.show(manager, tag)
         }
@@ -42,12 +44,12 @@ abstract class BaseDialogFragment(@LayoutRes layoutID: Int) : DialogFragment(lay
         cancel()
     }
 
-    fun <T> execute(
-        scope: CoroutineScope = this,
+    protected fun execute(
         context: CoroutineContext = Dispatchers.IO,
-        block: suspend CoroutineScope.() -> T
-    ) = Coroutine.async(scope, context) { block() }
-
-    open fun observeLiveBus() {
+        block: suspend CoroutineScope.() -> Unit
+    ) = launch(context = Dispatchers.Main) {
+        kotlinx.coroutines.withContext(context) { block() }
     }
+
+    open fun observeLiveBus() {}
 }

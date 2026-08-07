@@ -24,8 +24,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ToastUtils
 import com.robin.baseframe.R
-import com.robin.baseframe.app.base.BaseFragment
-import com.robin.baseframe.app.base.BaseViewModel
+import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.app.ext.contentResolver
 import com.robin.baseframe.app.ext.nav
 import com.robin.baseframe.camera.QrCodeAnalyzer
@@ -33,7 +32,7 @@ import com.robin.baseframe.databinding.FragmentCameraBinding
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class CameraFragment : BaseFragment<BaseViewModel, FragmentCameraBinding>() {
+class CameraFragment : BaseViewFragment<FragmentCameraBinding>() {
     private lateinit var cameraExecutor: ExecutorService
     private var mCamera: Camera? = null
     private lateinit var mPreview: Preview

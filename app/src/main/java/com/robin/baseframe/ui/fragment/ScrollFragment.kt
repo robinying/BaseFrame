@@ -3,13 +3,14 @@ package com.robin.baseframe.ui.fragment
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.robin.baseframe.app.base.BaseFragment
+import com.robin.baseframe.app.base.LegacyBaseFragment
+import com.robin.baseframe.app.base.LegacyViewModel
 import com.robin.baseframe.databinding.FragmentScrollViewBinding
 import com.robin.baseframe.ui.adapter.DemoAdapter
 import com.robin.baseframe.viewmodel.ScrollViewModel
 import com.robin.module_web.WebViewPool
 
-class ScrollFragment : BaseFragment<ScrollViewModel, FragmentScrollViewBinding>() {
+class ScrollFragment : LegacyBaseFragment<ScrollViewModel, FragmentScrollViewBinding>() {
 
     private val demoAdapter by lazy { DemoAdapter(requireContext()) }
     // 从缓存池获取
