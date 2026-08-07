@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/host_fragment"
         android:name="com.robin.baseframe.app.navigation.NavHostFragment"
         android:layout_width="match_parent"

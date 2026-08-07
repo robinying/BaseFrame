@@ -9,8 +9,8 @@
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:elevation="5dp"
+        android:background="@color/colorSurface"
+        android:elevation="0dp"
         android:theme="?attr/actionBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -20,7 +20,7 @@
     <com.robin.baseframe.widget.SuperButton
         android:id="@+id/bt_normal_notification"
         android:layout_width="104dp"
-        android:layout_height="24dp"
+        android:layout_height="@dimen/min_touch_target"
         android:layout_marginTop="16dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -40,7 +40,7 @@
     <com.robin.baseframe.widget.SuperButton
         android:id="@+id/bt_high_notification"
         android:layout_width="104dp"
-        android:layout_height="24dp"
+        android:layout_height="@dimen/min_touch_target"
         android:layout_marginTop="16dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -59,7 +59,7 @@
     <com.robin.baseframe.widget.SuperButton
         android:id="@+id/bt_progress_notification"
         android:layout_width="104dp"
-        android:layout_height="24dp"
+        android:layout_height="@dimen/min_touch_target"
         android:layout_marginTop="16dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"

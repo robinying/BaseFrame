@@ -1,176 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2">
+    android:background="@color/colorBackground">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:elevation="5dp"
+        android:background="@color/colorSurface"
+        android:elevation="0dp"
         android:theme="?attr/actionBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="基础框架"
+        app:title="@string/home_toolbar_title"
         app:titleTextAppearance="@style/ToolbarTitle" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/home_kicker"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar">
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginEnd="@dimen/space_16"
+        android:letterSpacing="0.12"
+        android:text="@string/home_kicker"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/home_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_4"
+        android:layout_marginEnd="@dimen/space_16"
+        android:text="@string/home_title"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_kicker" />
 
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_dialog"
-                android:layout_width="104dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="16dp"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:text="Dialog"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                app:sCornersRadius="6dp"
-                app:sSelectorNormalColor="#3E99D2"
-                app:sSelectorPressedColor="#881A4A"
-                app:sStrokeColor="@color/black"
-                app:sStrokeWidth="1dp"
-                app:sUseSelector="true" />
+    <TextView
+        android:id="@+id/home_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_16"
+        android:text="@string/home_subtitle"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_title" />
 
-            <com.robin.baseframe.widget.text.DPTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:clickable="true"
-                android:paddingStart="6dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="6dp"
-                android:paddingBottom="4dp"
-                android:text="DPTextView"
-                android:textSize="12sp"
-                app:backgroundColor="@color/colorPrimary"
-                app:backgroundPressedColor="#D59A9A"
-                app:corner_radius="6dp" />
+    <TextView
+        android:id="@+id/home_demo_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginEnd="@dimen/space_16"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_subtitle"
+        tools:text="13 个可运行 Demo" />
 
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_any_layer"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="AnyLayer" />
-
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_motion"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="MotionLayout" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_scoped_storage"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Scoped Storage" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_coordinator"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="CoordinatorLayout" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_count_down"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="CountDown" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_dsl"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="DSL Usage" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_scroll_view"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Over ScrollView" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_pop_up"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Popup" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_compose"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Compose" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_flow"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Flow" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_notification"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Notification" />
-
-            <com.robin.baseframe.widget.SuperButton
-                android:id="@+id/bt_camera"
-                style="@style/CommonButton"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Camera" />
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/demo_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/space_12"
+        android:paddingTop="@dimen/space_8"
+        android:paddingEnd="@dimen/space_12"
+        android:paddingBottom="@dimen/space_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_demo_count"
+        tools:listitem="@layout/item_demo_catalog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

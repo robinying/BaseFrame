@@ -16,6 +16,7 @@ import androidx.viewbinding.ViewBinding
 import com.robin.baseframe.app.ext.dismissLoadingExt
 import com.robin.baseframe.app.ext.getVmClazz
 import com.robin.baseframe.app.ext.showLoadingExt
+import com.robin.baseframe.app.ext.view.bindDemoToolbar
 import com.robin.baseframe.app.util.inflateBindingWithGeneric
 
 /**
@@ -61,6 +62,7 @@ abstract class LegacyBaseFragment<VM : LegacyViewModel, VB : ViewBinding> : Frag
         isFirst = true
         mViewModel = createViewModel()
         initView(savedInstanceState)
+        bindDemoToolbar(view)
         createObserver()
         registorDefUIChange()
         initData()
@@ -105,10 +107,10 @@ abstract class LegacyBaseFragment<VM : LegacyViewModel, VB : ViewBinding> : Frag
     }
 
     private fun registorDefUIChange() {
-        mViewModel.loadingChange.showDialog.observe(this, Observer {
+        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, Observer {
             showLoading(it)
         })
-        mViewModel.loadingChange.dismissDialog.observe(this, Observer {
+        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, Observer {
             dismissLoading()
         })
     }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.robin.baseframe.ui.fragment.MainFragment"
-        android:label="MainFragment"
+        android:label="@string/home_toolbar_title"
         tools:layout="@layout/fragment_main">
 
         <action
@@ -120,50 +120,50 @@
     <fragment
         android:id="@+id/anyLayerFragment"
         android:name="com.robin.baseframe.ui.fragment.AnyLayerFragment"
-        android:label="AnyLayerFragment"
+        android:label="@string/demo_title_any_layer"
         tools:layout="@layout/fragment_any_layer" />
 
     <fragment
         android:id="@+id/motionFragment"
         android:name="com.robin.baseframe.ui.fragment.MotionFragment"
-        android:label="MotionFragment"
+        android:label="@string/demo_title_motion_layout"
         tools:layout="@layout/fragment_motion" />
 
 
     <fragment
         android:id="@+id/storageFragment"
         android:name="com.robin.baseframe.ui.fragment.StorageFragment"
-        android:label="StorageFragment"
+        android:label="@string/demo_title_scoped_storage"
         tools:layout="@layout/fragment_storage" />
 
     <fragment
         android:id="@+id/coordinatorFragment"
         android:name="com.robin.baseframe.ui.fragment.CoordinatorFragment"
-        android:label="CoordinatorFragment"
+        android:label="@string/demo_title_coordinator_layout"
         tools:layout="@layout/fragment_coordinator" />
 
     <fragment
         android:id="@+id/countDownFragment"
         android:name="com.robin.baseframe.ui.fragment.CountDownFragment"
-        android:label="CountDownFragment"
+        android:label="@string/demo_title_count_down"
         tools:layout="@layout/fragment_count_down" />
 
     <fragment
         android:id="@+id/dslFragment"
         android:name="com.robin.baseframe.ui.fragment.DslFragment"
-        android:label="DslFragment"
+        android:label="@string/demo_title_dsl"
         tools:layout="@layout/fragment_dsl" />
 
     <fragment
         android:id="@+id/scrollFragment"
         android:name="com.robin.baseframe.ui.fragment.ScrollFragment"
-        android:label="ScrollFragment"
+        android:label="@string/demo_title_over_scroll"
         tools:layout="@layout/fragment_scroll_view" />
 
     <fragment
         android:id="@+id/popupWindowFragment"
         android:name="com.robin.baseframe.ui.fragment.PopupWindowFragment"
-        android:label="PopupWindowFragment"
+        android:label="@string/demo_title_popup"
         tools:layout="@layout/fragment_pop_up_window" />
 
 <!--    <fragment-->
@@ -175,24 +175,24 @@
     <fragment
         android:id="@+id/flowFragment"
         android:name="com.robin.baseframe.ui.fragment.FlowFragment"
-        android:label="FlowFragment"
+        android:label="@string/demo_title_flow"
         tools:layout="@layout/fragment_flow" />
 
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.robin.baseframe.ui.fragment.NotificationFragment"
-        android:label="NotificationFragment"
+        android:label="@string/demo_title_notification"
         tools:layout="@layout/fragment_notification"/>
 
     <fragment
         android:id="@+id/behaviorFragment"
         android:name="com.robin.baseframe.ui.fragment.BehaviorFragment"
-        android:label="BehaviorFragment"
+        android:label="@string/demo_title_behavior"
         tools:layout="@layout/fragement_behavior"/>
 
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.robin.baseframe.ui.fragment.CameraFragment"
-        android:label="CameraFragment"
+        android:label="@string/demo_title_camera"
         tools:layout="@layout/fragment_camera"/>
 </navigation>

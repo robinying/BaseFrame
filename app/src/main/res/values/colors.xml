@@ -7,8 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimary">#1565C0</color>
+    <color name="colorPrimaryVariant">#0D47A1</color>
+    <color name="colorOnPrimary">#FFFFFFFF</color>
     <color name="colorGray">#333333</color>
+    <color name="colorBackground">#F6F8FB</color>
+    <color name="colorSurface">#FFFFFFFF</color>
+    <color name="colorSurfaceVariant">#EEF3F8</color>
+    <color name="colorOnSurface">#1B1D1F</color>
+    <color name="colorOnSurfaceVariant">#5B6570</color>
+    <color name="colorOutline">#D5DDE5</color>
+    <color name="colorSuccess">#2E7D32</color>
 
     <!-- Google's Material Design colors from
     https://www.google.com/design/spec/style/color.html#color-color-palette -->

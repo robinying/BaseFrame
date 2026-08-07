@@ -4,7 +4,19 @@
     android:id="@+id/main_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/colorBackground">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:elevation="0dp"
+        android:theme="?attr/actionBarStyle"
+        android:layout_gravity="top"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/demo_title_behavior"
+        app:titleTextAppearance="@style/ToolbarTitle" />
 
     <com.robin.baseframe.widget.MoveView
         android:layout_width="100dp"

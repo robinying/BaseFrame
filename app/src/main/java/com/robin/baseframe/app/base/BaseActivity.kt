@@ -3,6 +3,7 @@ package com.robin.baseframe.app.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.robin.baseframe.app.ext.view.bindActivityToolbar
 import com.robin.baseframe.app.util.inflateBindingWithGeneric
 
 /**
@@ -26,6 +27,7 @@ abstract class BaseViewActivity<VB : ViewBinding> : AppCompatActivity() {
         _binding = inflateBindingWithGeneric(layoutInflater)
         setContentView(binding.root)
         initView(savedInstanceState)
+        binding.root.bindActivityToolbar()
     }
 
     override fun onDestroy() {

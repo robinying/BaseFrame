@@ -5,20 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:elevation="0dp"
+        android:theme="?attr/actionBarStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/demo_title_motion_layout"
+        app:titleTextAppearance="@style/ToolbarTitle" />
+
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginEnd="@dimen/space_16"
         app:layoutDescription="@xml/scene_demo1"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
 
         <View
             android:id="@+id/button"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@color/colorPrimary"
-            android:text="Button" />
+            android:contentDescription="@string/motion_demo_description" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
@@ -26,7 +40,10 @@
         android:id="@+id/tv_demo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Demo"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_12"
+        android:text="@string/motion_demo_description"
+        android:textColor="@color/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/motion_layout" />
 

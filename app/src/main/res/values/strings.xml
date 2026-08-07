@@ -1,4 +1,43 @@
 <resources>
     <string name="app_name">BaseFrame</string>
     <string name="dialog_msg">Layer Dialog Message</string>
+    <string name="home_toolbar_title">BaseFrame</string>
+    <string name="home_kicker">ANDROID PLAYGROUND</string>
+    <string name="home_title">Android 能力演示工作台</string>
+    <string name="home_subtitle">探索 UI、交互、状态与设备能力，选择一个 Demo 开始。</string>
+    <string name="home_demo_count">%1$d 个可运行 Demo</string>
+    <string name="navigate_up">返回</string>
+    <string name="motion_demo_description">拖动蓝色方块，观察 MotionLayout 状态变化。</string>
+
+    <string name="demo_category_overlay">浮层与反馈</string>
+    <string name="demo_category_layout">布局与交互</string>
+    <string name="demo_category_state">状态与架构</string>
+    <string name="demo_category_device">设备与媒体</string>
+
+    <string name="demo_title_dialog">Dialog</string>
+    <string name="demo_summary_dialog">查看底部弹窗、普通对话框和交互链路。</string>
+    <string name="demo_title_any_layer">AnyLayer</string>
+    <string name="demo_summary_any_layer">体验拖拽、Toast、通知和引导浮层。</string>
+    <string name="demo_title_popup">Popup</string>
+    <string name="demo_summary_popup">体验不同方向的 PopupWindow 展示方式。</string>
+    <string name="demo_title_notification">Notification</string>
+    <string name="demo_summary_notification">查看普通、重要和进度通知样例。</string>
+    <string name="demo_title_motion_layout">MotionLayout</string>
+    <string name="demo_summary_motion_layout">观察约束布局中的动效与状态变化。</string>
+    <string name="demo_title_coordinator_layout">CoordinatorLayout</string>
+    <string name="demo_summary_coordinator_layout">体验滚动联动和行为协调。</string>
+    <string name="demo_title_over_scroll">OverScrollView</string>
+    <string name="demo_summary_over_scroll">查看嵌套滚动与回弹效果。</string>
+    <string name="demo_title_flow">Flow</string>
+    <string name="demo_summary_flow">观察 Flow 数据流的加载、成功与更新。</string>
+    <string name="demo_title_scoped_storage">Scoped Storage</string>
+    <string name="demo_summary_scoped_storage">体验图片选择与分区存储相关能力。</string>
+    <string name="demo_title_count_down">CountDown</string>
+    <string name="demo_summary_count_down">查看倒计时、停止和重新创建数据。</string>
+    <string name="demo_title_dsl">DSL Usage</string>
+    <string name="demo_summary_dsl">体验弹窗 DSL 与链式调用方式。</string>
+    <string name="demo_title_behavior">Behavior</string>
+    <string name="demo_summary_behavior">查看自定义 Behavior 对控件移动的影响。</string>
+    <string name="demo_title_camera">Camera</string>
+    <string name="demo_summary_camera">体验相机预览与设备能力接入。</string>
 </resources>

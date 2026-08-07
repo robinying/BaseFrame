@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.robin.baseframe.app.util.inflateBindingWithGeneric
+import com.robin.baseframe.app.ext.view.bindDemoToolbar
 
 /**
  * ViewBinding + Fragment 基类 — 提供 ViewBinding 通用脚手架。
@@ -40,6 +41,7 @@ abstract class BaseViewFragment<VB : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(savedInstanceState)
+        bindDemoToolbar(view)
     }
 
     override fun onDestroyView() {
