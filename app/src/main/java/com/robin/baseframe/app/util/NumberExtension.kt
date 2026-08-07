@@ -48,7 +48,7 @@ fun String.formatNumber(
 
 fun String?.toBigDecimalWithNull(default: BigDecimal = BigDecimal.ZERO) = isNullOrBlank().not().then({
     try {
-        this!!.toBigDecimal()
+        this?.toBigDecimal() ?: default
     } catch (e: NumberFormatException) {
         default
     }
@@ -56,7 +56,7 @@ fun String?.toBigDecimalWithNull(default: BigDecimal = BigDecimal.ZERO) = isNull
 
 fun String?.toIntWithNull(default: Int = 0) = isNullOrBlank().not().then({
     try {
-        this!!.toInt()
+        this?.toInt() ?: default
     } catch (e: NumberFormatException) {
         default
     }
@@ -64,7 +64,7 @@ fun String?.toIntWithNull(default: Int = 0) = isNullOrBlank().not().then({
 
 fun String?.toFloatWithNull(default: Float = 0F) = isNullOrBlank().not().then({
     try {
-        this!!.toFloat()
+        this?.toFloat() ?: default
     } catch (e: NumberFormatException) {
         default
     }
@@ -72,7 +72,7 @@ fun String?.toFloatWithNull(default: Float = 0F) = isNullOrBlank().not().then({
 
 fun String?.toDoubleWithNull(default: Double = 0.toDouble()) = isNullOrBlank().not().then({
     try {
-        this!!.toDouble()
+        this?.toDouble() ?: default
     } catch (e: NumberFormatException) {
         default
     }

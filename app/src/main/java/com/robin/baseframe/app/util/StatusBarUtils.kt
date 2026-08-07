@@ -157,7 +157,7 @@ object StatusBarUtils {
                 field = clazz.getField("status_bar_height")
             }
         } catch (t: Throwable) {
-            t.printStackTrace()
+            LogUtils.debugInfo("StatusBarUtils reflect failed", t.message)
         }
         if (field != null && obj != null) {
             try {

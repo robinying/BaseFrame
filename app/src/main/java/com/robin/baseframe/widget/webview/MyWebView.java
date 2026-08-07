@@ -2,14 +2,12 @@ package com.robin.baseframe.widget.webview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.webkit.GeolocationPermissions;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
@@ -23,7 +21,6 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 
 public class MyWebView extends WebView {
 
@@ -57,10 +54,10 @@ public class MyWebView extends WebView {
       mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
       mWebSettings.setGeolocationEnabled(true);   //允许访问地址
 
-      //允许访问多媒体
-      mWebSettings.setAllowFileAccess(true);
-      mWebSettings.setAllowFileAccessFromFileURLs(true);
-      mWebSettings.setAllowUniversalAccessFromFileURLs(true);
+      // 禁止文件跨域访问
+      mWebSettings.setAllowFileAccess(false);
+      mWebSettings.setAllowFileAccessFromFileURLs(false);
+      mWebSettings.setAllowUniversalAccessFromFileURLs(false);
 
       setVerticalScrollBarEnabled(false);
       setVerticalScrollbarOverlay(false);
@@ -93,41 +90,10 @@ public class MyWebView extends WebView {
 
 
    WebViewClient mWebViewClient = new WebViewClient() {
-      //https ssl证书问题，如果没有https的问题可以注释掉
+      // SSL 证书校验失败时直接拒绝，不提供用户绕过选项
       @Override
       public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-         // 接受所有网站的证书,Google不通过
-         //使用下面的兼容写法
-         final SslErrorHandler mHandler;
-         mHandler= handler;
-         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-         builder.setMessage("SSL validation failed");
-         builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-               mHandler.proceed();
-            }
-         });
-         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-               mHandler.cancel();
-            }
-         });
-         builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-               if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                  mHandler.cancel();
-                  dialog.dismiss();
-                  return true;
-               }
-               return false;
-            }
-         });
-         AlertDialog dialog = builder.create();
-         dialog.show();
-
+         handler.cancel();
       }
 
       //页面加载完成，展示图片

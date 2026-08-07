@@ -26,24 +26,16 @@ class CompositeCoroutine : CoroutineContainer {
 
     override fun add(coroutine: Coroutine<*>): Boolean {
         synchronized(this) {
-            var set: HashSet<Coroutine<*>>? = resources
-            if (resources == null) {
-                set = hashSetOf()
-                resources = set
-            }
-            return set!!.add(coroutine)
+            val set = resources ?: hashSetOf<Coroutine<*>>().also { resources = it }
+            return set.add(coroutine)
         }
     }
 
     override fun addAll(vararg coroutines: Coroutine<*>): Boolean {
         synchronized(this) {
-            var set: HashSet<Coroutine<*>>? = resources
-            if (resources == null) {
-                set = hashSetOf()
-                resources = set
-            }
+            val set = resources ?: hashSetOf<Coroutine<*>>().also { resources = it }
             for (coroutine in coroutines) {
-                val add = set!!.add(coroutine)
+                val add = set.add(coroutine)
                 if (!add) {
                     return false
                 }

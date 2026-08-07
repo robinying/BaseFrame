@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.robin.baseframe.app.navigation.NavHostFragment
+import com.robin.baseframe.app.util.LogUtils
 import java.lang.Exception
 
 
@@ -32,7 +33,7 @@ fun NavController.navigateAction(resId: Int, bundle: Bundle? = null, interval: L
         try {
             navigate(resId, bundle)
         } catch (ignore: Exception) {
-
+            LogUtils.debugInfo("Navigation failed", ignore.message)
         }
     }
 }

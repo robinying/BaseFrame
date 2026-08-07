@@ -7,9 +7,9 @@ import android.net.http.SslError
 import android.os.Build
 import android.webkit.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import retrofit2.Retrofit
 import okio.ByteString.Companion.encodeUtf8
 import java.io.File
@@ -23,7 +23,7 @@ class BaseWebViewClient : WebViewClient() {
     }
 
     /**
-     * 证书校验错误
+     * 证书校验错误 — 直接拒绝，不提供用户绕过选项
      */
     @SuppressLint("WebViewClientOnReceivedSslError")
     override fun onReceivedSslError(
@@ -31,19 +31,7 @@ class BaseWebViewClient : WebViewClient() {
         handler: SslErrorHandler,
         error: SslError
     ) {
-        AlertDialog.Builder(view.context)
-            .setTitle("提示")
-            .setMessage("当前网站安全证书已过期或不可信\n是否继续浏览?")
-            .setPositiveButton("继续浏览") { dialog, which ->
-                dialog?.dismiss()
-                handler.proceed()
-            }
-            .setNegativeButton("返回上一页") { dialog, which ->
-                dialog?.dismiss()
-                handler.cancel()
-            }
-            .create()
-            .show()
+        handler.cancel()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -194,9 +182,11 @@ class BaseWebViewClient : WebViewClient() {
             val sourceFile = File(sourceFilePath)
             runBlocking {
                 try {
-                    fileApiService.downloadFile(url/*, webRequest.requestHeaders*/).use {
-                        it.byteStream().use { inputStream ->
-                            sourceFile.writeBytes(inputStream.readBytes())
+                    withTimeout(30_000L) {
+                        fileApiService.downloadFile(url/*, webRequest.requestHeaders*/).use {
+                            it.byteStream().use { inputStream ->
+                                sourceFile.writeBytes(inputStream.readBytes())
+                            }
                         }
                     }
                     // 下载完成后增加 "success-" 前缀 代表文件无损 【防止io流被异常中断导致文件损坏 无法判断】

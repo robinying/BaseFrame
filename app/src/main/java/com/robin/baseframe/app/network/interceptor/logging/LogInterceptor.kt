@@ -30,7 +30,7 @@ class LogInterceptor : Interceptor {
         if (logRequest) {
             //打印请求信息
             if (request.body() != null && isParseable(
-                    request.body()!!.contentType()
+                    request.body()?.contentType()
                 )
             ) {
                 mPrinter.printJsonRequest(request, parseParams(request))
@@ -59,11 +59,8 @@ class LogInterceptor : Interceptor {
         if (logResponse) {
             val segmentList =
                 request.url().encodedPathSegments()
-            val header: String = if (originalResponse.networkResponse() == null) {
-                originalResponse.headers().toString()
-            } else {
-                originalResponse.networkResponse()!!.request().headers().toString()
-            }
+            val header: String = originalResponse.networkResponse()?.request()?.headers()?.toString()
+                ?: originalResponse.headers().toString()
             val code = originalResponse.code()
             val isSuccessful = originalResponse.isSuccessful
             val message = originalResponse.message()
@@ -100,8 +97,8 @@ class LogInterceptor : Interceptor {
     ): String? {
         return try {
             //读取服务器返回的结果
-            val responseBody = response.newBuilder().build().body()
-            val source = responseBody!!.source()
+            val responseBody = response.newBuilder().build().body() ?: return "{}"
+            val source = responseBody.source()
             source.request(Long.MAX_VALUE) // Buffer the entire body.
             val buffer = source.buffer()
 
@@ -132,7 +129,7 @@ class LogInterceptor : Interceptor {
         clone: Buffer
     ): String? {
         var charset = Charset.forName("UTF-8")
-        val contentType = responseBody!!.contentType()
+        val contentType = responseBody?.contentType() ?: return ""
         if (contentType != null) {
             charset = contentType.charset(charset)
         }
@@ -197,13 +194,17 @@ class LogInterceptor : Interceptor {
                     charset = contentType.charset(charset)
                 }
                 var json = requestbuffer.readString(charset)
-                if (hasUrlEncoded(json!!)) {
+                if (json != null && hasUrlEncoded(json)) {
                     json = URLDecoder.decode(
                         json,
                         convertCharset(charset)
                     )
                 }
-                jsonFormat(json!!)
+                if (json != null) {
+                    jsonFormat(json)
+                } else {
+                    ""
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
                 "{\"error\": \"" + e.message + "\"}"

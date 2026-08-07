@@ -84,14 +84,14 @@ class NotificationUtil(base: Context) : ContextWrapper(base) {
         channel.vibrationPattern = longArrayOf(100, 100, 200)
         //是否会有灯光
         channel.shouldShowLights()
-        manager!!.createNotificationChannel(channel)
+        manager?.createNotificationChannel(channel)
     }
 
     /**
      * 清空所有的通知
      */
     fun clearNotification() {
-        manager!!.cancelAll()
+        manager?.cancelAll()
     }
 
     /**
@@ -104,9 +104,10 @@ class NotificationUtil(base: Context) : ContextWrapper(base) {
         val build: Notification
         val builder = getNotificationBuilder(title, content, icon)
         build = builder.build()
-        if (flags != null && flags!!.size > 0) {
-            for (a in flags!!.indices) {
-                build.flags = build.flags or flags!![a]
+        val currentFlags = flags
+        if (currentFlags != null && currentFlags.size > 0) {
+            for (a in currentFlags.indices) {
+                build.flags = build.flags or currentFlags[a]
             }
         }
         return build
@@ -121,7 +122,7 @@ class NotificationUtil(base: Context) : ContextWrapper(base) {
      */
     fun sendNotification(notifyId: Int, title: String, content: String, icon: Int) {
         val build = getNotification(title, content, icon)
-        manager!!.notify(notifyId, build)
+        manager?.notify(notifyId, build)
     }
 
 
@@ -157,8 +158,9 @@ class NotificationUtil(base: Context) : ContextWrapper(base) {
         if (intent != null) {
             builder.setContentIntent(intent)
         }
-        if (ticker != null && ticker!!.isNotEmpty()) {
-            builder.setTicker(ticker)
+        val currentTicker = ticker
+        if (currentTicker != null && currentTicker.isNotEmpty()) {
+            builder.setTicker(currentTicker)
         }
         if (`when` != 0L) {
             builder.setWhen(`when`)

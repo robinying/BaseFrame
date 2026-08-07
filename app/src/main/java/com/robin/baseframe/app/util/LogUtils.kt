@@ -12,10 +12,11 @@ import com.robin.baseframe.app.ext.util.openLog
 object LogUtils {
     private const val DEFAULT_TAG = "BaseLog"
     fun debugInfo(tag: String?, msg: String?) {
-        if (!openLog || TextUtils.isEmpty(msg)) {
+        val message = msg ?: return
+        if (!openLog || TextUtils.isEmpty(message)) {
             return
         }
-        Log.d(tag, msg!!)
+        Log.d(tag, message)
     }
 
     fun debugInfo(msg: String?) {
@@ -26,10 +27,11 @@ object LogUtils {
     }
 
     fun warnInfo(tag: String?, msg: String?) {
-        if (!openLog || TextUtils.isEmpty(msg)) {
+        val message = msg ?: return
+        if (!openLog || TextUtils.isEmpty(message)) {
             return
         }
-        Log.w(tag, msg!!)
+        Log.w(tag, message)
     }
 
     fun warnInfo(msg: String?) {

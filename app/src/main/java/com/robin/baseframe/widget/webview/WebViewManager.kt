@@ -77,8 +77,8 @@ object WebViewManager {
             webViewCache.forEach {
                 it.removeAllViews()
                 it.destroy()
-                webViewCache.remove(it)
             }
+            webViewCache.clear()
         } catch (e: Exception) {
             e.printStackTrace()
         }

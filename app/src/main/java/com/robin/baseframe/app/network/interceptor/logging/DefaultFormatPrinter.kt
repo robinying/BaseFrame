@@ -41,7 +41,7 @@ class DefaultFormatPrinter : FormatPrinter{
         )
         logLines(
             tag,
-            requestBody.split(LINE_SEPARATOR!!).toTypedArray(),
+            requestBody.split(LINE_SEPARATOR).toTypedArray(),
             true
         )
         LogUtils.debugInfo(tag, END_LINE)
@@ -100,7 +100,7 @@ class DefaultFormatPrinter : FormatPrinter{
         var bodyString = bodyString
         bodyString =
             when {
-                isJson(contentType) -> jsonFormat(bodyString!!)
+                isJson(contentType) -> jsonFormat(bodyString ?: "{}")
                 isXml(
                     contentType
                 ) -> xmlFormat(bodyString)
@@ -129,7 +129,7 @@ class DefaultFormatPrinter : FormatPrinter{
         )
         logLines(
             tag,
-            responseBody.split(LINE_SEPARATOR!!).toTypedArray(),
+            responseBody.split(LINE_SEPARATOR).toTypedArray(),
             true
         )
         LogUtils.debugInfo(tag, END_LINE)
@@ -184,14 +184,14 @@ class DefaultFormatPrinter : FormatPrinter{
 
     companion object {
         private const val TAG = "HttpLog"
-        private val LINE_SEPARATOR = System.getProperty("line.separator")
+        private val LINE_SEPARATOR = System.getProperty("line.separator") ?: "\n"
         private val DOUBLE_SEPARATOR =
             LINE_SEPARATOR + LINE_SEPARATOR
-        private val OMITTED_RESPONSE = arrayOf(
+        private val OMITTED_RESPONSE: Array<String?> = arrayOf(
             LINE_SEPARATOR,
             "Omitted response body"
         )
-        private val OMITTED_REQUEST = arrayOf(
+        private val OMITTED_REQUEST: Array<String?> = arrayOf(
             LINE_SEPARATOR,
             "Omitted request body"
         )
@@ -240,7 +240,8 @@ class DefaultFormatPrinter : FormatPrinter{
             withLineSize: Boolean
         ) {
             for (line in lines) {
-                val lineLength = line!!.length
+                if (line == null) continue
+                val lineLength = line.length
                 val maxLongSize = if (withLineSize) 110 else lineLength
                 for (i in 0..lineLength / maxLongSize) {
                     val start = i * maxLongSize
@@ -255,12 +256,12 @@ class DefaultFormatPrinter : FormatPrinter{
         }
 
         private fun computeKey(): String {
-            if (last.get()!! >= 4) {
+            val current = last.get() ?: 0
+            if (current >= 4) {
                 last.set(0)
             }
-            val s =
-                ARMS[last.get()!!]
-            last.set(last.get()!! + 1)
+            val s = ARMS[current]
+            last.set(current + 1)
             return s
         }
 
@@ -290,7 +291,7 @@ class DefaultFormatPrinter : FormatPrinter{
                         if (isEmpty(header)) "" else HEADERS_TAG + LINE_SEPARATOR + dotHeaders(
                             header
                         )
-            return log.split(LINE_SEPARATOR!!).toTypedArray()
+            return log.split(LINE_SEPARATOR).toTypedArray()
         }
 
         private fun getResponse(
@@ -308,7 +309,7 @@ class DefaultFormatPrinter : FormatPrinter{
                     )
                 ) "" else HEADERS_TAG + LINE_SEPARATOR +
                         dotHeaders(header))
-            return log.split(LINE_SEPARATOR!!).toTypedArray()
+            return log.split(LINE_SEPARATOR).toTypedArray()
         }
 
         private fun slashSegments(segments: List<String?>): String {
@@ -327,7 +328,7 @@ class DefaultFormatPrinter : FormatPrinter{
          */
         private fun dotHeaders(header: String): String {
             val headers =
-                header.split(LINE_SEPARATOR!!).toTypedArray()
+                header.split(LINE_SEPARATOR).toTypedArray()
             val builder = StringBuilder()
             var tag = "─ "
             if (headers.size > 1) {

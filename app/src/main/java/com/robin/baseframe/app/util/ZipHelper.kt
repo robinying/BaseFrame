@@ -1,5 +1,6 @@
 package com.robin.baseframe.app.util
 
+import com.robin.baseframe.app.util.LogUtils
 import java.io.*
 import java.nio.charset.Charset
 import java.util.*
@@ -177,9 +178,8 @@ class ZipHelper private constructor() {
             if (closeable != null) {
                 try {
                     closeable.close()
-                } catch (rethrown: RuntimeException) {
-                    throw rethrown
-                } catch (ignored: Exception) {
+                } catch (e: Exception) {
+                    LogUtils.debugInfo("ZipHelper close failed", e.message)
                 }
             }
         }

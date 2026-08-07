@@ -36,10 +36,10 @@ object WebUtils {
         webView.settings.textZoom = 100
         // 是否保存密码
         webView.settings.savePassword = false
-        // 是否可以访问文件
-        webView.settings.allowFileAccess = true
-        // 是否支持通过js打开新窗口
-        webView.settings.javaScriptCanOpenWindowsAutomatically = true
+        // 禁止访问文件
+        webView.settings.allowFileAccess = false
+        // 禁止通过js打开新窗口
+        webView.settings.javaScriptCanOpenWindowsAutomatically = false
         // 是否支持自动加载图片
         webView.settings.loadsImagesAutomatically = true
         webView.settings.blockNetworkImage = false
@@ -50,8 +50,8 @@ object WebUtils {
         webView.settings.domStorageEnabled = true
         // 是否启用 database storage API 功能
         webView.settings.databaseEnabled = true
-        // 配置当安全源试图从不安全源加载资源时WebView的行为
-        webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        // 禁止混合内容（HTTPS页面中加载HTTP资源）
+        webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
 
         // 设置缓存模式
         webView.settings.cacheMode = WebSettings.LOAD_DEFAULT

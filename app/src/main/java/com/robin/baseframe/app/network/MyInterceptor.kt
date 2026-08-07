@@ -74,7 +74,7 @@ class MyInterceptor : Interceptor {
         clone: Buffer
     ): String? {
         var charset = Charset.forName("UTF-8")
-        val contentType = responseBody!!.contentType()
+        val contentType = responseBody?.contentType() ?: return null
         if (contentType != null) {
             charset = contentType.charset(charset)
         }

@@ -26,7 +26,8 @@ class Ktx : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        val application = context!!.applicationContext as Application
+        val application = context?.applicationContext as? Application
+            ?: return false
         install(application)
         return true
     }

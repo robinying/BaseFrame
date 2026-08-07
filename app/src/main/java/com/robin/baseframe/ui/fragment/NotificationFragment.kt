@@ -127,12 +127,14 @@ class NotificationFragment : BaseFragment<BaseViewModel, FragmentNotificationBin
         if (mBuilder != null) {
             val progressMax = 100
             val progressCurrent = 50
-            // 1.更新进度
-            mBuilder!!.setContentText("下载中：$progressCurrent%")
-                .setProgress(progressMax, progressCurrent, false)
-            // 2.下载完成
-            //mBuilder.setContentText("下载完成！").setProgress(0, 0, false)
-            mManager?.notify(mProgressNotificationId, mBuilder!!.build())
+            mBuilder?.let { builder ->
+                // 1.更新进度
+                builder.setContentText("下载中：$progressCurrent%")
+                    .setProgress(progressMax, progressCurrent, false)
+                // 2.下载完成
+                //builder.setContentText("下载完成！").setProgress(0, 0, false)
+                mManager?.notify(mProgressNotificationId, builder.build())
+            }
             Toast.makeText(requireContext(), "已更新进度到$progressCurrent%", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(requireContext(), "请先发一条进度条通知", Toast.LENGTH_SHORT).show()

@@ -69,8 +69,8 @@ class AnyLayerFragment : BaseFragment<BaseViewModel, FragmentAnyLayerBinding>() 
                     .setContentView(R.layout.popup_normal)
                     .setAnimStyle(DialogLayer.AnimStyle.TOP)
             }
-            LogUtils.debugInfo("isShow:" + mPopup!!.isShown)
-            if (mPopup!!.isShown) {
+            LogUtils.debugInfo("isShow:" + mPopup?.isShown)
+            if (mPopup?.isShown == true) {
                 mPopup?.dismiss()
             } else {
                 mPopup?.show()

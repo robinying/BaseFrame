@@ -13,10 +13,8 @@ class Coroutine<T>(
 
     companion object {
 
-        private val DEFAULT = MainScope()
-
         fun <T> async(
-            scope: CoroutineScope = DEFAULT,
+            scope: CoroutineScope,
             context: CoroutineContext = Dispatchers.IO,
             block: suspend CoroutineScope.() -> T
         ): Coroutine<T> {
@@ -142,7 +140,7 @@ class Coroutine<T>(
                 ensureActive()
                 success?.let { dispatchCallback(this, value, it) }
             } catch (e: CancellationException) {
-
+                // 正常的协程取消，无需处理
             } catch (e: Throwable) {
                 val consume: Boolean = errorReturn?.value?.let { value ->
                     if (isActive) {
