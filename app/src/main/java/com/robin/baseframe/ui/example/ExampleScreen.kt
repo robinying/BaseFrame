@@ -1,82 +1,113 @@
 package com.robin.baseframe.ui.example
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import android.widget.Toast
+import com.robin.baseframe.R
+import com.robin.baseframe.ui.component.DemoStateContent
 
-/**
- * 示例页面 Compose Screen — UDF 样板。
- *
- * 数据流：
- *   state <- ViewModel.uiState (单向)
- *   onEvent -> ViewModel.onEvent (单向)
- */
+/** Compose MVVM/UDF example using the shared app shell and state language. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExampleScreen(
-    viewModel: ExampleViewModel = hiltViewModel()
+    viewModel: ExampleViewModel = hiltViewModel(),
+    onBack: (() -> Unit)? = null
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val navigateUpLabel = stringResource(R.string.navigate_up)
+    val refreshSubmittedMessage = stringResource(R.string.example_refresh_submitted)
+    val homeData = uiState.homeData
 
-    // 观察一次性副作用
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is ExampleUiEffect.ShowToast -> Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
-                is ExampleUiEffect.ShowError -> Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
+                is ExampleUiEffect.ShowToast -> snackbarHostState.showSnackbar(effect.message)
+                is ExampleUiEffect.ShowError -> snackbarHostState.showSnackbar(effect.message)
             }
         }
     }
 
-    // 首次进入加载数据
     LaunchedEffect(Unit) {
         viewModel.onEvent(ExampleUiEvent.LoadHome)
     }
 
-    Scaffold { innerPadding ->
-        Column(
+    Scaffold(
+        contentWindowInsets = WindowInsets.safeDrawing,
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.example_toolbar_title)) },
+                navigationIcon = {
+                    if (onBack != null) {
+                        IconButton(onClick = onBack) {
+                            Text(
+                                text = "‹",
+                                modifier = Modifier.semantics {
+                                    contentDescription = navigateUpLabel
+                                }
+                            )
+                        }
+                    }
+                }
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { innerPadding ->
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            when {
-                uiState.isLoading -> CircularProgressIndicator()
-                uiState.error != null -> {
-                    Text("加载失败: ${uiState.error}", color = MaterialTheme.colorScheme.error)
-                    Button(onClick = { viewModel.onEvent(ExampleUiEvent.Refresh) }) {
-                        Text("重试")
-                    }
-                }
-                else -> {
+            DemoStateContent(
+                isLoading = uiState.isLoading || (homeData == null && uiState.error == null),
+                errorMessage = uiState.error,
+                isEmpty = homeData != null && homeData.banner.isEmpty() && homeData.channels.isEmpty(),
+                onRetry = { viewModel.onEvent(ExampleUiEvent.Refresh) }
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
-                        "首页数据 (Banner: ${uiState.homeData?.banner?.size ?: 0}, " +
-                            "Channel: ${uiState.homeData?.channels?.size ?: 0})",
-                        style = MaterialTheme.typography.titleMedium
+                        text = stringResource(
+                            R.string.example_data_summary,
+                            homeData?.banner?.size ?: 0,
+                            homeData?.channels?.size ?: 0
+                        ),
+                        style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                     )
                     Button(onClick = {
                         viewModel.onEvent(ExampleUiEvent.Refresh)
-                        viewModel.showToast("刷新完成")
+                        viewModel.showToast(refreshSubmittedMessage)
                     }) {
-                        Text("刷新")
+                        Text(stringResource(R.string.example_refresh))
                     }
                 }
             }

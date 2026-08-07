@@ -142,7 +142,28 @@ object DemoCatalog {
         )
     )
 
-    fun rows(): List<DemoCatalogRow> = buildList {
+    /**
+     * Filters the catalog while preserving the original catalog order.
+     *
+     * The Android UI supplies localized title and summary text through
+     * [searchableText]. The default keeps this model usable from plain unit
+     * tests and callers that only need to search stable ids.
+     */
+    fun filter(
+        query: String = "",
+        category: DemoCategory? = null,
+        searchableText: (DemoCatalogItem) -> String = { it.id }
+    ): List<DemoCatalogItem> {
+        val normalizedQuery = query.trim()
+        return items.filter { item ->
+            val matchesCategory = category == null || item.category == category
+            val matchesQuery = normalizedQuery.isEmpty() || searchableText(item)
+                .contains(normalizedQuery, ignoreCase = true)
+            matchesCategory && matchesQuery
+        }
+    }
+
+    fun rows(items: List<DemoCatalogItem> = this.items): List<DemoCatalogRow> = buildList {
         items.groupBy { it.category }.forEach { (category, categoryItems) ->
             add(DemoCatalogRow.CategoryHeader(category))
             categoryItems.forEach { add(DemoCatalogRow.DemoItem(it)) }

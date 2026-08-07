@@ -10,4 +10,5 @@
     <color name="colorOnSurfaceVariant">#B7C1CA</color>
     <color name="colorOutline">#3D4A56</color>
     <color name="colorSuccess">#81C784</color>
+    <color name="colorError">#F2B8B5</color>
 </resources>

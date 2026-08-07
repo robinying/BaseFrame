@@ -6,6 +6,20 @@
     <string name="home_title">Android 能力演示工作台</string>
     <string name="home_subtitle">探索 UI、交互、状态与设备能力，选择一个 Demo 开始。</string>
     <string name="home_demo_count">%1$d 个可运行 Demo</string>
+    <string name="home_search_hint">搜索 Demo 名称或能力</string>
+    <string name="home_filter_all">全部</string>
+    <string name="home_search_empty">没有找到匹配的 Demo，试试其他关键词或分类。</string>
+    <string name="demo_state_loading_title">正在加载</string>
+    <string name="demo_state_loading_message">请稍候，正在准备演示数据。</string>
+    <string name="demo_state_empty_title">暂无内容</string>
+    <string name="demo_state_empty_message">当前没有可展示的数据。</string>
+    <string name="demo_state_error_title">加载失败</string>
+    <string name="demo_state_retry">重试</string>
+    <string name="demo_flow_content_hint">数据流运行中，实时数值会显示在上方。</string>
+    <string name="example_toolbar_title">Compose 状态示例</string>
+    <string name="example_data_summary">首页数据（Banner：%1$d，Channel：%2$d）</string>
+    <string name="example_refresh">刷新</string>
+    <string name="example_refresh_submitted">刷新任务已提交</string>
     <string name="navigate_up">返回</string>
     <string name="motion_demo_description">拖动蓝色方块，观察 MotionLayout 状态变化。</string>
 

@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.core.widget.doAfterTextChanged
 import com.robin.aidldemo.Apple
 import com.robin.aidldemo.IApiCallBack
 import com.robin.aidldemo.IRemoteService
@@ -23,11 +25,14 @@ import com.robin.baseframe.ui.adapter.DemoCatalogAdapter
 import com.robin.baseframe.ui.home.DemoAction
 import com.robin.baseframe.ui.home.DemoCatalog
 import com.robin.baseframe.ui.home.DemoCatalogRow
+import com.robin.baseframe.ui.home.DemoCategory
 import com.robin.baseframe.viewmodel.MainViewModel
 
 class MainFragment : LegacyBaseFragment<MainViewModel, FragmentMainBinding>() {
     private var mIApiCallback: IApiCallBack? = null
     private var mObserverService: IRemoteService? = null
+    private var searchQuery: String = ""
+    private var selectedCategory: DemoCategory? = null
 
     override fun initView(savedInstanceState: Bundle?) {
         val adapter = DemoCatalogAdapter(::onDemoClicked)
@@ -42,11 +47,48 @@ class MainFragment : LegacyBaseFragment<MainViewModel, FragmentMainBinding>() {
 
         binding.demoList.layoutManager = gridLayoutManager
         binding.demoList.adapter = adapter
-        binding.homeDemoCount.text = getString(R.string.home_demo_count, DemoCatalog.items.size)
-        adapter.submitList(DemoCatalog.rows())
+        binding.demoSearchInput.setText(searchQuery)
+        binding.demoSearchInput.doAfterTextChanged {
+            searchQuery = it?.toString().orEmpty()
+            updateCatalog(adapter)
+        }
+        binding.demoFilterGroup.setOnCheckedChangeListener { _, checkedId ->
+            selectedCategory = when (checkedId) {
+                R.id.filter_overlay -> DemoCategory.OVERLAY
+                R.id.filter_layout -> DemoCategory.LAYOUT
+                R.id.filter_state -> DemoCategory.STATE
+                R.id.filter_device -> DemoCategory.DEVICE
+                else -> null
+            }
+            updateCatalog(adapter)
+        }
+        binding.demoFilterGroup.check(
+            when (selectedCategory) {
+                DemoCategory.OVERLAY -> R.id.filter_overlay
+                DemoCategory.LAYOUT -> R.id.filter_layout
+                DemoCategory.STATE -> R.id.filter_state
+                DemoCategory.DEVICE -> R.id.filter_device
+                null -> R.id.filter_all
+            }
+        )
+        updateCatalog(adapter)
 
         bindService()
         bindRemoteService()
+    }
+
+    private fun updateCatalog(adapter: DemoCatalogAdapter) {
+        val filteredItems = DemoCatalog.filter(
+            query = searchQuery,
+            category = selectedCategory,
+            searchableText = { item ->
+                getString(item.titleRes) + " " + getString(item.summaryRes)
+            }
+        )
+        binding.homeDemoCount.text = getString(R.string.home_demo_count, filteredItems.size)
+        binding.demoEmptyState.visibility = if (filteredItems.isEmpty()) View.VISIBLE else View.GONE
+        binding.demoList.visibility = if (filteredItems.isEmpty()) View.GONE else View.VISIBLE
+        adapter.submitList(DemoCatalog.rows(filteredItems))
     }
 
     private fun onDemoClicked(row: DemoCatalogRow.DemoItem) {

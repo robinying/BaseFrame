@@ -18,6 +18,7 @@
     <color name="colorOnSurfaceVariant">#5B6570</color>
     <color name="colorOutline">#D5DDE5</color>
     <color name="colorSuccess">#2E7D32</color>
+    <color name="colorError">#B3261E</color>
 
     <!-- Google's Material Design colors from
     https://www.google.com/design/spec/style/color.html#color-color-palette -->

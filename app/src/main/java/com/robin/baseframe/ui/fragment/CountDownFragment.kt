@@ -20,6 +20,7 @@ import kotlinx.coroutines.cancel
 
 class CountDownFragment : LegacyBaseFragment<CountDownViewModel, FragmentCountDownBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
+        binding.demoStateView.showLoading()
         binding.btStart.onClick {
             mViewModel.globalLiveData.cancelCount()
         }
@@ -33,6 +34,7 @@ class CountDownFragment : LegacyBaseFragment<CountDownViewModel, FragmentCountDo
 
     override fun lazyLoadData() {
         super.lazyLoadData()
+        binding.demoStateView.showContent()
         mViewModel.globalLiveData.startCount(30)
         SharedFlowBus.with(User::class.java).tryEmit(User("robin", 32))
     }
