@@ -36,7 +36,7 @@ class AnyLayerFragment : BaseViewFragment<FragmentAnyLayerBinding>() {
         binding.btToast.onClick {
             AnyLayer.toast()
                 .setIcon(R.drawable.ic_success)
-                .setMessage("哈哈，成功了")
+                .setMessage(getString(R.string.any_layer_toast_success))
                 .setTextColorInt(Color.WHITE)
                 .setBackgroundColorRes(R.color.colorPrimary)
                 .setGravity(Gravity.CENTER)
@@ -45,10 +45,10 @@ class AnyLayerFragment : BaseViewFragment<FragmentAnyLayerBinding>() {
         }
         binding.btNotification.clickNoRepeat {
             AnyLayer.notification(mActivity)
-                .setTitle("Notification Title")
+                .setTitle(getString(R.string.any_layer_notification_title))
                 .setIcon(R.mipmap.ic_launcher)
                 .setDesc(R.string.dialog_msg)
-                .setLabel("this is Label")
+                .setLabel(getString(R.string.any_layer_notification_label))
                 .addOnNotificationClickListener { layer, view ->
                     LogUtils.debugInfo("Notification Click")
                 }
@@ -100,11 +100,11 @@ class AnyLayerFragment : BaseViewFragment<FragmentAnyLayerBinding>() {
 
     private fun showGuide() {
         val textView = TextView(mActivity)
-        textView.text = "引导页面"
+        textView.text = getString(R.string.any_layer_guide_text)
         textView.setTextColor(Color.WHITE)
         textView.textSize = 16f
         val textView3 = TextView(mActivity)
-        textView3.text = "下一个"
+        textView3.text = getString(R.string.any_layer_guide_next)
         textView3.setPadding(90, 30, 90, 30)
         textView3.setBackgroundResource(R.drawable.shape_icon)
         textView3.setTextColor(Color.WHITE)

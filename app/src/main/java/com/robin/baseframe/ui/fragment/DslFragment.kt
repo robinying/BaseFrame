@@ -37,11 +37,11 @@ class DslFragment : BaseViewFragment<FragmentDslBinding>() {
         })
 
         binding.tvDsl.buildSpannableString {
-            addText("我已详细阅读并同意")
-            addText("《隐私政策》") {
+            addText(getString(R.string.dsl_privacy_prefix))
+            addText(getString(R.string.dsl_privacy_policy_link)) {
                 setColor("#0099FF")
                 onClick(false) {
-                    ToastUtils.showShort("Click 隐私政策")
+                    ToastUtils.showShort(getString(R.string.dsl_privacy_policy_toast))
                 }
             }
         }
@@ -58,7 +58,11 @@ class DslFragment : BaseViewFragment<FragmentDslBinding>() {
             }
         }
         timer?.start()
-        binding.card1.bind(R.mipmap.ic_launcher, "name String", "description String")
+        binding.card1.bind(
+            R.mipmap.ic_launcher,
+            getString(R.string.dsl_demo_card_name),
+            getString(R.string.dsl_demo_card_description)
+        )
     }
 
     override fun onDestroy() {

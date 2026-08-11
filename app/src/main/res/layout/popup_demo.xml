@@ -12,7 +12,7 @@
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="赞一个"
+        android:text="@string/popup_like_toast"
         android:textColor="@color/white"
         android:textSize="16dp" />
 
@@ -27,7 +27,7 @@
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="踩一下"
+        android:text="@string/popup_dislike_toast"
         android:textColor="@color/white"
         android:textSize="16dp" />
 </LinearLayout>

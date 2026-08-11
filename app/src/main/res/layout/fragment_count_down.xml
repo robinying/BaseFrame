@@ -14,14 +14,14 @@
         android:theme="?attr/actionBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="LiveData Demo"
+        app:title="@string/demo_title_count_down"
         app:titleTextAppearance="@style/ToolbarTitle" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_count_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/space_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_bar" />
@@ -31,8 +31,8 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:layout_marginTop="20dp"
-        android:text="Start"
+        android:layout_marginTop="@dimen/space_20"
+        android:text="@string/count_down_button_start"
         app:layout_constraintEnd_toStartOf="@id/bt_stop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_count_down" />
@@ -42,8 +42,8 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:layout_marginTop="20dp"
-        android:text="Stop"
+        android:layout_marginTop="@dimen/space_20"
+        android:text="@string/count_down_button_stop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/bt_start"
         app:layout_constraintTop_toBottomOf="@id/tv_count_down" />
@@ -53,8 +53,8 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:layout_marginTop="20dp"
-        android:text="Create New Data"
+        android:layout_marginTop="@dimen/space_20"
+        android:text="@string/count_down_button_create_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_start" />

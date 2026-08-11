@@ -23,8 +23,8 @@ class ScrollFragment : LegacyBaseFragment<ScrollViewModel, FragmentScrollViewBin
         }
         // 设置生命周期监听
         mWebView.setLifecycleOwner(this)
-        // 添加到 RelativeLayout 容器中
-        binding.root.addView(
+        // 添加到 web_content 容器中（限定在顶栏下方，避免遮挡统一顶栏）
+        binding.webContent.addView(
             mWebView,
             ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
