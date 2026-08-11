@@ -121,11 +121,11 @@ class PopupWindowFragment : LegacyBaseFragment<LegacyViewModel, FragmentPopUpWin
                 val tvLike = view.findViewById<TextView>(R.id.tv_like)
                 val tvHate = view.findViewById<TextView>(R.id.tv_hate)
                 tvLike.setOnClickListener {
-                    toast("赞一个")
+                    toast(getString(R.string.popup_like_toast))
                     mPopUpWindow?.dismiss()
                 }
                 tvHate.setOnClickListener {
-                    toast("踩一下")
+                    toast(getString(R.string.popup_dislike_toast))
                     mPopUpWindow?.dismiss()
                 }
             }

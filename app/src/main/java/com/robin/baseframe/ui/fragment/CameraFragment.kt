@@ -26,7 +26,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.robin.baseframe.R
 import com.robin.baseframe.app.base.BaseViewFragment
 import com.robin.baseframe.app.ext.contentResolver
-import com.robin.baseframe.app.ext.nav
 import com.robin.baseframe.camera.QrCodeAnalyzer
 import com.robin.baseframe.databinding.FragmentCameraBinding
 import java.util.concurrent.ExecutorService
@@ -46,9 +45,11 @@ class CameraFragment : BaseViewFragment<FragmentCameraBinding>() {
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(
-                mActivity, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-            )
+            binding.demoStateView.showError(
+                getString(R.string.camera_permission_denied_message),
+                getString(R.string.camera_permission_retry)
+            ) { requestCameraPermissions() }
+            requestCameraPermissions()
         }
         binding.viewFinder.setOnTouchListener { v, event ->
             val action =
@@ -63,6 +64,12 @@ class CameraFragment : BaseViewFragment<FragmentCameraBinding>() {
             mCamera?.cameraControl?.startFocusAndMetering(action)
             return@setOnTouchListener true
         }
+    }
+
+    private fun requestCameraPermissions() {
+        ActivityCompat.requestPermissions(
+            mActivity, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+        )
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -80,12 +87,10 @@ class CameraFragment : BaseViewFragment<FragmentCameraBinding>() {
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                nav().navigateUp()
+                binding.demoStateView.showError(
+                    getString(R.string.camera_permission_denied_message),
+                    getString(R.string.camera_permission_retry)
+                ) { requestCameraPermissions() }
             }
         }
     }
@@ -145,8 +150,12 @@ class CameraFragment : BaseViewFragment<FragmentCameraBinding>() {
                     this, cameraSelector,imageAnalysis, mPreview, mImageCapture
                 )
             }
+            binding.demoStateView.showContent()
         } catch (exc: Exception) {
             Log.e(TAG, "Use case binding failed", exc)
+            binding.demoStateView.showError(getString(R.string.camera_bind_failed_message)) {
+                bindPreview(cameraProvider, isBack, isVideo)
+            }
         }
     }
 
@@ -197,12 +206,15 @@ class CameraFragment : BaseViewFragment<FragmentCameraBinding>() {
             val path = if (uri != null) (" @ " + uri.path) else "none"
 
             Toast.makeText(
-                context, "Picture got:$path.", Toast.LENGTH_SHORT
+                context, context.getString(R.string.camera_capture_success_toast, path), Toast.LENGTH_SHORT
             ).show()
         }
 
         override fun onError(exception: ImageCaptureException) {
             Log.d("cameraX", "onError:${exception.imageCaptureError}")
+            Toast.makeText(
+                context, context.getString(R.string.camera_capture_failed_toast), Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

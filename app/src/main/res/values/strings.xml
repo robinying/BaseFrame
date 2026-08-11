@@ -54,4 +54,75 @@
     <string name="demo_summary_behavior">查看自定义 Behavior 对控件移动的影响。</string>
     <string name="demo_title_camera">Camera</string>
     <string name="demo_summary_camera">体验相机预览与设备能力接入。</string>
+
+    <!-- AnyLayer -->
+    <string name="any_layer_button_drag">Drag AnyLayer</string>
+    <string name="any_layer_button_toast">Toast AnyLayer</string>
+    <string name="any_layer_button_notification">Notification AnyLayer</string>
+    <string name="any_layer_button_popup">PopUp AnyLayer</string>
+    <string name="any_layer_button_dialog_alpha">Dialog Alpha AnyLayer</string>
+    <string name="any_layer_button_guide">Guide AnyLayer</string>
+    <string name="any_layer_toast_success">哈哈，成功了</string>
+    <string name="any_layer_notification_title">Notification Title</string>
+    <string name="any_layer_notification_label">this is Label</string>
+    <string name="any_layer_guide_text">引导页面</string>
+    <string name="any_layer_guide_next">下一个</string>
+
+    <!-- CountDown -->
+    <string name="count_down_button_start">Start</string>
+    <string name="count_down_button_stop">Stop</string>
+    <string name="count_down_button_create_data">Create New Data</string>
+
+    <!-- DSL -->
+    <string name="dsl_button_chain_dialog">Chain Dialog</string>
+    <string name="dsl_privacy_prefix">我已详细阅读并同意</string>
+    <string name="dsl_privacy_policy_link">《隐私政策》</string>
+    <string name="dsl_privacy_policy_toast">Click 隐私政策</string>
+    <string name="dsl_demo_card_name">name String</string>
+    <string name="dsl_demo_card_description">description String</string>
+
+    <!-- Notification -->
+    <string name="notification_title_normal">普通通知</string>
+    <string name="notification_content_normal">普通通知内容</string>
+    <string name="notification_title_high">重要通知</string>
+    <string name="notification_content_high">重要通知内容</string>
+    <string name="notification_title_progress">进度通知</string>
+    <string name="notification_channel_description">描述</string>
+    <string name="notification_action_view">去看看</string>
+    <string name="notification_content_progress_format">下载中：%1$d%%</string>
+    <string name="notification_toast_progress_updated">已更新进度到%1$d%%</string>
+    <string name="notification_toast_progress_missing">请先发一条进度条通知</string>
+    <string name="notification_permission_denied_hint">未授予通知权限，通知功能不可用，请前往系统设置开启。</string>
+
+    <!-- Popup -->
+    <string name="popup_button_all">All</string>
+    <string name="popup_button_up">up</string>
+    <string name="popup_button_down">down</string>
+    <string name="popup_button_left">left</string>
+    <string name="popup_button_right">right</string>
+    <string name="popup_like_toast">赞一个</string>
+    <string name="popup_dislike_toast">踩一下</string>
+
+    <!-- Storage -->
+    <string name="storage_button_select">Image Select</string>
+    <string name="storage_state_empty_message">未找到图片，试试选择一张图片或检查媒体库权限。</string>
+    <string name="storage_state_error_message">读取媒体库失败，请检查权限后重试。</string>
+    <string name="storage_picker_cancelled_toast">已取消选择图片</string>
+
+    <!-- Behavior -->
+    <string name="behavior_button_follow">跟随黑块移动</string>
+
+    <!-- Shared small dialogs (dialog_a/b/c) -->
+    <string name="dialog_a_message">我是Dialog A</string>
+    <string name="dialog_b_message">我是Dialog B</string>
+    <string name="dialog_c_message">我是Dialog C</string>
+    <string name="dialog_action_cancel">取消</string>
+    <string name="dialog_action_confirm">确定</string>
+
+    <!-- Camera -->
+    <string name="camera_permission_denied_message">需要相机权限才能使用此 Demo。</string>
+    <string name="camera_permission_retry">重新授权</string>
+    <string name="camera_bind_failed_message">相机初始化失败，请重试。</string>
+    <string name="camera_capture_failed_toast">拍照失败，请重试。</string>
+    <string name="camera_capture_success_toast">Picture got:%1$s.</string>
 </resources>

@@ -13,7 +13,7 @@
         android:theme="?attr/actionBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="AnyLayer 浮层框架"
+        app:title="@string/demo_title_any_layer"
         app:titleTextAppearance="@style/ToolbarTitle" />
 
     <com.robin.baseframe.widget.SuperButton
@@ -21,9 +21,9 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:text="Drag AnyLayer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:text="@string/any_layer_button_drag"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_bar" />
 
@@ -33,9 +33,9 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:text="Toast AnyLayer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:text="@string/any_layer_button_toast"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_drag" />
 
@@ -45,9 +45,9 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:text="Notification AnyLayer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:text="@string/any_layer_button_notification"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_toast" />
 
@@ -57,9 +57,9 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:text="PopUp AnyLayer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:text="@string/any_layer_button_popup"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_notification" />
 
@@ -69,9 +69,9 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:text="Dialog Alpha AnyLayer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:text="@string/any_layer_button_dialog_alpha"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_popup" />
 
@@ -80,9 +80,9 @@
         style="@style/CommonButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/min_touch_target"
-        android:text="Guide AnyLayer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:text="@string/any_layer_button_guide"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_dialog_alpha" />
 

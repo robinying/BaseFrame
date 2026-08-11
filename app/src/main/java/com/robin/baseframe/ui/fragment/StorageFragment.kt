@@ -2,8 +2,10 @@ package com.robin.baseframe.ui.fragment
 
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import com.robin.baseframe.R
 import com.robin.baseframe.app.base.LegacyBaseFragment
 import com.robin.baseframe.app.base.LegacyViewModel
+import com.robin.baseframe.app.ext.toast
 import com.robin.baseframe.app.ext.view.onClick
 import com.robin.baseframe.app.util.LogUtils
 import com.robin.baseframe.databinding.FragmentStorageBinding
@@ -14,6 +16,8 @@ class StorageFragment : LegacyBaseFragment<StorageViewModel, FragmentStorageBind
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { result ->
             if (result != null) {
                 LogUtils.debugInfo("uri:$result")
+            } else {
+                toast(getString(R.string.storage_picker_cancelled_toast))
             }
         }
 
@@ -49,6 +53,22 @@ class StorageFragment : LegacyBaseFragment<StorageViewModel, FragmentStorageBind
     override fun lazyLoadData() {
         super.lazyLoadData()
         mViewModel.scanMediaFiles()
+    }
+
+    override fun createObserver() {
+        super.createObserver()
+        mViewModel.scanStatus.observe(viewLifecycleOwner) { status ->
+            when {
+                status == StorageViewModel.STATUS_LOADING -> binding.demoStateView.showLoading()
+                status == StorageViewModel.STATUS_EMPTY ->
+                    binding.demoStateView.showEmpty(getString(R.string.storage_state_empty_message))
+                status.startsWith(StorageViewModel.STATUS_ERROR_PREFIX) ->
+                    binding.demoStateView.showError(getString(R.string.storage_state_error_message)) {
+                        mViewModel.scanMediaFiles()
+                    }
+                status == StorageViewModel.STATUS_CONTENT -> binding.demoStateView.showContent()
+            }
+        }
     }
 
     private fun startSelectFile() {

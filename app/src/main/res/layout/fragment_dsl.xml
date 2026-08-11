@@ -14,15 +14,15 @@
         android:theme="?attr/actionBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="DSL Usage"
+        app:title="@string/demo_title_dsl"
         app:titleTextAppearance="@style/ToolbarTitle" />
 
     <EditText
         android:id="@+id/et1"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_bar" />
 
@@ -30,8 +30,8 @@
         android:id="@+id/et2"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et1" />
 
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         tools:text="adkasgdksahdklsahdkhasldkhasldaslasgdkasgdkagsdjgasdgsajkdgajgdasjgdjsadgasj"
         android:gravity="center_horizontal"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et2" />
 
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Chain Dialog"
+        android:text="@string/dsl_button_chain_dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_bar" />

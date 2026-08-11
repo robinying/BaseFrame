@@ -2,10 +2,21 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_view"
-    android:background="@color/white"
+    android:background="@color/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:elevation="0dp"
+        android:theme="?attr/actionBarStyle"
+        android:layout_gravity="top"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/demo_title_coordinator_layout"
+        app:titleTextAppearance="@style/ToolbarTitle" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_color"
@@ -18,13 +29,13 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:background="@color/md_red_50" />
+        android:background="@color/colorPrimary" />
 
     <com.robin.baseframe.widget.CustomNavigationView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@color/md_red_500"
+        android:background="@color/colorPrimaryVariant"
         app:layout_behavior=".widget.behavior.NavigationBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
