@@ -76,5 +76,5 @@ app/.cxx
 app/build
 .idea/deploymentTargetDropDown.xml
 
-# Audit reports
+# Local audit reports and working documentation
 docs/

@@ -9,6 +9,8 @@
     <string name="home_search_hint">搜索 Demo 名称或能力</string>
     <string name="home_filter_all">全部</string>
     <string name="home_search_empty">没有找到匹配的 Demo，试试其他关键词或分类。</string>
+    <string name="demo_unavailable_badge">当前不可用</string>
+    <string name="demo_unavailable_feature_not_supported">此设备暂不支持该演示。</string>
     <string name="demo_state_loading_title">正在加载</string>
     <string name="demo_state_loading_message">请稍候，正在准备演示数据。</string>
     <string name="demo_state_empty_title">暂无内容</string>

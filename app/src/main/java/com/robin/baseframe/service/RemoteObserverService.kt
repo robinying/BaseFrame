@@ -2,72 +2,63 @@ package com.robin.baseframe.service
 
 import android.app.Service
 import android.content.Intent
-import android.os.*
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
+import android.os.RemoteCallbackList
+import android.os.RemoteException
 import com.robin.aidldemo.Apple
 import com.robin.aidldemo.IRemoteService
 import com.robin.aidldemo.IRemoteServiceCallBack
+import com.robin.baseframe.app.util.LogUtils
 
+/** Provides apple information to registered AIDL clients. */
 class RemoteObserverService : Service() {
-    private val APPLE_INFO = 0x0706
-    val mCallbacks = RemoteCallbackList<IRemoteServiceCallBack>()
+    private val mCallbacks = RemoteCallbackList<IRemoteServiceCallBack>()
+    private val mHandler = Handler(Looper.getMainLooper())
+    private val mNotifyAppleInfo = Runnable { notifyAppleInfo() }
 
     override fun onCreate() {
         super.onCreate()
-        Thread {
-            try {
-                Thread.sleep((3 * 1000).toLong())
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-            val apple = Apple("红富士", 10f, "Remote Service Info")
-            val message = Message.obtain()
-            message.what = APPLE_INFO
-            message.obj = apple
-            mHandler.sendMessage(message)
-        }.start()
+        mHandler.postDelayed(mNotifyAppleInfo, NOTIFICATION_DELAY_MILLIS)
     }
 
-    private val mHandler: Handler = object : Handler(Looper.getMainLooper()) {
-        override fun handleMessage(msg: Message) {
-            when (msg.what) {
-                APPLE_INFO -> {
-                    val apple: Apple = msg.obj as Apple
-                    //观察者模式，通知所有客户端
-                    val clientNum = mCallbacks.beginBroadcast()
-                    var i = 0
-                    while (i < clientNum) {
-                        val callBack = mCallbacks.getBroadcastItem(i)
-                        if (callBack != null && apple != null) {
-                            try {
-                                callBack.noticeAppleInfo(apple)
-                            } catch (e: RemoteException) {
-                                e.printStackTrace()
-                            }
-                        }
-                        i++
-                    }
-                    mCallbacks.finishBroadcast()
+    override fun onBind(intent: Intent): IBinder = mBinder
+
+    override fun onDestroy() {
+        mHandler.removeCallbacks(mNotifyAppleInfo)
+        mCallbacks.kill()
+        super.onDestroy()
+    }
+
+    private fun notifyAppleInfo() {
+        val apple = Apple("红富士", 10f, "Remote Service Info")
+        val clientCount = mCallbacks.beginBroadcast()
+        try {
+            for (index in 0 until clientCount) {
+                try {
+                    mCallbacks.getBroadcastItem(index).noticeAppleInfo(apple)
+                } catch (exception: RemoteException) {
+                    LogUtils.warnInfo(TAG, "Unable to notify RemoteObserverService client")
                 }
             }
-            super.handleMessage(msg)
+        } finally {
+            mCallbacks.finishBroadcast()
         }
     }
-    override fun onBind(intent: Intent): IBinder {
-        return mIBinder
+
+    private val mBinder = object : IRemoteService.Stub() {
+        override fun registerCallback(callback: IRemoteServiceCallBack?) {
+            callback?.let { mCallbacks.register(it) }
+        }
+
+        override fun unregisterCallback(callback: IRemoteServiceCallBack?) {
+            callback?.let { mCallbacks.unregister(it) }
+        }
     }
 
-    private val mIBinder = object :IRemoteService.Stub(){
-        override fun registerCallback(cb: IRemoteServiceCallBack?) {
-            cb?.let {
-                mCallbacks.register(it)
-            }
-        }
-
-        override fun unregisterCallback(cb: IRemoteServiceCallBack?) {
-            cb?.let {
-                mCallbacks.unregister(it)
-            }
-        }
-
+    private companion object {
+        const val NOTIFICATION_DELAY_MILLIS = 3_000L
+        const val TAG = "RemoteObserverService"
     }
 }

@@ -2,70 +2,82 @@ package com.robin.module_web
 
 import android.util.Log
 import android.webkit.ConsoleMessage
+import android.webkit.GeolocationPermissions
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 
-class BaseWebChromeClient : WebChromeClient() {
+/** WebChromeClient that only exposes policy-approved browser capabilities. */
+class BaseWebChromeClient(
+    private val policy: WebViewPolicy = WebViewPolicy.DEFAULT
+) : WebChromeClient() {
 
-    private val TAG = "BaseWebChromeClient"
-
-    /**
-     * 网页控制台输入日志
-     */
     override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-        Log.d(TAG, "onConsoleMessage() -> ${consoleMessage.message()}")
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "Web console: ${consoleMessage.message()}")
+        }
         return super.onConsoleMessage(consoleMessage)
     }
 
-    /**
-     * 网页警告弹框
-     */
     override fun onJsAlert(
         view: WebView,
         url: String,
         message: String,
         result: JsResult
     ): Boolean {
+        if (!policy.allowsJavaScript(url)) {
+            result.cancel()
+            return true
+        }
         AlertDialog.Builder(view.context)
-            .setTitle("警告")
+            .setTitle("网页提示")
             .setMessage(message)
-            .setPositiveButton("确认") { dialog, which ->
-                dialog?.dismiss()
+            .setPositiveButton("确认") { dialog, _ ->
+                dialog.dismiss()
                 result.confirm()
             }
-            .setNegativeButton("取消") { dialog, which ->
-                dialog?.dismiss()
+            .setNegativeButton("取消") { dialog, _ ->
+                dialog.dismiss()
                 result.cancel()
             }
-            .create()
             .show()
         return true
     }
 
-    /**
-     * 网页弹出确认弹窗
-     */
     override fun onJsConfirm(
         view: WebView,
         url: String,
         message: String,
         result: JsResult
     ): Boolean {
+        if (!policy.allowsJavaScript(url)) {
+            result.cancel()
+            return true
+        }
         AlertDialog.Builder(view.context)
-            .setTitle("警告")
+            .setTitle("网页提示")
             .setMessage(message)
-            .setPositiveButton("确认") { dialog, which ->
-                dialog?.dismiss()
+            .setPositiveButton("确认") { dialog, _ ->
+                dialog.dismiss()
                 result.confirm()
             }
-            .setNegativeButton("取消") { dialog, which ->
-                dialog?.dismiss()
+            .setNegativeButton("取消") { dialog, _ ->
+                dialog.dismiss()
                 result.cancel()
             }
-            .create()
             .show()
         return true
+    }
+
+    override fun onGeolocationPermissionsShowPrompt(
+        origin: String,
+        callback: GeolocationPermissions.Callback
+    ) {
+        callback.invoke(origin, policy.allowsGeolocation(origin), false)
+    }
+
+    private companion object {
+        const val TAG = "BaseWebChromeClient"
     }
 }

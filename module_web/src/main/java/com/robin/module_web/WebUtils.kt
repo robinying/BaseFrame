@@ -1,69 +1,37 @@
 package com.robin.module_web
 
-import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
-import java.io.File
 
 object WebUtils {
-    /**
-     * 获取 WebView 缓存文件目录
-     */
-    fun getWebViewCachePath(context: Context): String{
-        return context.filesDir.absolutePath + "/webCache"
-    }
-
-    fun defaultSettings(context: Context, webView: WebView) {
-        // 白色背景
+    /** Applies the baseline-safe settings that are shared by every pooled WebView. */
+    fun defaultSettings(webView: WebView) {
         webView.setBackgroundColor(Color.TRANSPARENT)
         webView.setBackgroundResource(R.color.white)
-
         webView.overScrollMode = View.OVER_SCROLL_NEVER
-        webView.isNestedScrollingEnabled = false // 默认支持嵌套滑动
+        webView.isNestedScrollingEnabled = false
 
-        // 设置自适应屏幕，两者合用
         webView.settings.useWideViewPort = true
         webView.settings.loadWithOverviewMode = true
-        // 是否支持缩放，默认为true
         webView.settings.setSupportZoom(false)
-        // 是否使用内置的缩放控件
         webView.settings.builtInZoomControls = false
-        // 是否显示原生的缩放控件
         webView.settings.displayZoomControls = false
-        // 设置文本缩放 默认 100
         webView.settings.textZoom = 100
-        // 是否保存密码
+        @Suppress("DEPRECATION")
         webView.settings.savePassword = false
-        // 禁止访问文件
         webView.settings.allowFileAccess = false
-        // 禁止通过js打开新窗口
+        webView.settings.allowContentAccess = false
+        webView.settings.javaScriptEnabled = false
         webView.settings.javaScriptCanOpenWindowsAutomatically = false
-        // 是否支持自动加载图片
         webView.settings.loadsImagesAutomatically = true
         webView.settings.blockNetworkImage = false
-        // 设置编码格式
         webView.settings.defaultTextEncodingName = "utf-8"
         webView.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
-        // 是否启用 DOM storage API
-        webView.settings.domStorageEnabled = true
-        // 是否启用 database storage API 功能
-        webView.settings.databaseEnabled = true
-        // 禁止混合内容（HTTPS页面中加载HTTP资源）
+        webView.settings.domStorageEnabled = false
+        webView.settings.databaseEnabled = false
         webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
-
-        // 设置缓存模式
         webView.settings.cacheMode = WebSettings.LOAD_DEFAULT
-        // 开启 Application Caches 功能
-        webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-        // 设置 Application Caches 缓存目录
-//        val cachePath = getWebViewCachePath(context)
-//        val cacheDir = File(cachePath)
-//        // 设置缓存目录
-//        if (!cacheDir.exists() && !cacheDir.isDirectory) {
-//            cacheDir.mkdirs()
-//        }
-//        webView.settings.setAppCachePath(cachePath)
     }
 }

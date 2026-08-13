@@ -3,36 +3,35 @@ package com.robin.baseframe.ui.activity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.ViewGroup
-import android.webkit.JavascriptInterface
 import android.widget.FrameLayout
 import com.robin.baseframe.app.base.BaseViewActivity
 import com.robin.baseframe.databinding.ActivityWebviewBinding
-import com.robin.baseframe.widget.webview.MyWebView
-import com.robin.baseframe.widget.webview.WebViewManager
+import com.robin.module_web.BaseWebView
+import com.robin.module_web.WebViewPolicy
+import com.robin.module_web.WebViewPool
 
+/** Hosts a policy-controlled WebView from the shared module pool. */
 class WebViewActivity : BaseViewActivity<ActivityWebviewBinding>() {
-    private lateinit var mWebView: MyWebView
-    private var mWebUrl = "https://www.baidu.com"
+    private lateinit var mWebView: BaseWebView
+
     override fun initView(savedInstanceState: Bundle?) {
-        initWeb()
+        initWebView()
     }
 
-    private fun initWeb() {
-        val params = FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
+    private fun initWebView() {
+        mWebView = WebViewPool.getInstance().getWebView(mActivity, WebViewPolicy.DEFAULT)
+        binding.webContent.addView(
+            mWebView,
+            FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
         )
-        mWebView = WebViewManager.obtain(mActivity)
-        mWebView.layoutParams = params
-
-        mWebView.addJavascriptInterface(H5CallBackAndroid(), "webkit")
-
-        binding.webContent.addView(mWebView)
     }
 
     override fun onPause() {
-        super.onPause()
         mWebView.onPause()
+        super.onPause()
     }
 
     override fun onResume() {
@@ -41,34 +40,15 @@ class WebViewActivity : BaseViewActivity<ActivityWebviewBinding>() {
     }
 
     override fun onDestroy() {
+        WebViewPool.getInstance().recycle(mWebView)
         super.onDestroy()
-        WebViewManager.recycle(mWebView)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        val webBackForwardList = mWebView.copyBackForwardList()
-        val historyOneOriginalUrl = webBackForwardList.getItemAtIndex(0)?.originalUrl
-        val curIndex = webBackForwardList.currentIndex
-
-        return if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
-            if (historyOneOriginalUrl?.contains("data:text/html;charset=utf-8") == true) {
-                if (curIndex > 1) {
-                    mWebView.goBack()
-                    true
-                } else {
-                    super.onKeyDown(keyCode, event)
-                }
-            } else {
-                mWebView.goBack()
-                true
-            }
-        } else {
-            super.onKeyDown(keyCode, event)
+        if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+            mWebView.goBack()
+            return true
         }
-    }
-
-    inner class H5CallBackAndroid {
-        @JavascriptInterface
-        fun clickImage(obj: String) {}
+        return super.onKeyDown(keyCode, event)
     }
 }

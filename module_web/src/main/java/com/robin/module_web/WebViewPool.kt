@@ -2,88 +2,102 @@ package com.robin.module_web
 
 import android.content.Context
 import android.content.MutableContextWrapper
-import android.util.Log
-import java.util.*
+import android.os.Looper
+import java.util.ArrayDeque
 
+/** Main-thread WebView pool with bounded retention and explicit trimming. */
 class WebViewPool private constructor() {
 
-    companion object {
+    private val mPool = ArrayDeque<BaseWebView>()
+    private var mMaxSize = DEFAULT_MAX_SIZE
 
-        private const val TAG = "WebViewPool"
+    /** Sets the maximum retained instances. Excess cached instances are destroyed. */
+    fun setMaxPoolSize(size: Int) {
+        checkMainThread()
+        mMaxSize = size.coerceAtLeast(0)
+        trimToSize(mMaxSize)
+    }
+
+    /** Prewarms up to [initSize] instances with the safe default policy. */
+    fun init(context: Context, initSize: Int = mMaxSize) {
+        checkMainThread()
+        repeat((initSize - mPool.size).coerceAtLeast(0)) {
+            if (mPool.size < mMaxSize) {
+                mPool.addLast(create(context.applicationContext))
+            }
+        }
+    }
+
+    /** Obtains a WebView whose page-specific state has been cleared. */
+    fun getWebView(context: Context, policy: WebViewPolicy = WebViewPolicy.DEFAULT): BaseWebView {
+        checkMainThread()
+        val webView = if (mPool.isEmpty()) {
+            create(context.applicationContext)
+        } else {
+            mPool.removeFirst()
+        }
+        (webView.context as MutableContextWrapper).baseContext = context
+        webView.configure(policy)
+        webView.clearHistory()
+        webView.resumeTimers()
+        return webView
+    }
+
+    /** Clears page state and retains the WebView only when capacity remains. */
+    fun recycle(webView: BaseWebView) {
+        checkMainThread()
+        if (mPool.contains(webView)) {
+            return
+        }
+        webView.release()
+        webView.pauseTimers()
+        (webView.context as? MutableContextWrapper)?.baseContext = webView.context.applicationContext
+        if (mPool.size < mMaxSize) {
+            mPool.addLast(webView)
+        } else {
+            webView.destroy()
+        }
+    }
+
+    /** Destroys cached instances, for example when the process receives trim-memory. */
+    fun destroyAll() {
+        checkMainThread()
+        while (mPool.isNotEmpty()) {
+            mPool.removeFirst().apply {
+                release()
+                destroy()
+            }
+        }
+    }
+
+    private fun create(context: Context): BaseWebView =
+        BaseWebView(MutableContextWrapper(context)).apply {
+            configure(WebViewPolicy.DEFAULT)
+        }
+
+    private fun trimToSize(size: Int) {
+        while (mPool.size > size) {
+            mPool.removeLast().apply {
+                release()
+                destroy()
+            }
+        }
+    }
+
+    private fun checkMainThread() {
+        check(Looper.myLooper() == Looper.getMainLooper()) {
+            "WebViewPool must be accessed from the main thread."
+        }
+    }
+
+    companion object {
+        private const val DEFAULT_MAX_SIZE = 1
 
         @Volatile
-        private var instance: WebViewPool? = null
+        private var sInstance: WebViewPool? = null
 
-        fun getInstance(): WebViewPool {
-            return instance ?: synchronized(this) {
-                instance ?: WebViewPool().also { instance = it }
-            }
-        }
-    }
-
-    private val sPool = Stack<BaseWebView>()
-    private val lock = byteArrayOf()
-    private var maxSize = 1
-
-    /**
-     * 设置 webview 池容量
-     */
-    fun setMaxPoolSize(size: Int) {
-        synchronized(lock) { maxSize = size }
-    }
-
-    /**
-     * 初始化webview 放在list中
-     */
-    fun init(context: Context, initSize: Int = maxSize) {
-        for (i in 0 until initSize) {
-            val view = BaseWebView(MutableContextWrapper(context))
-            view.webChromeClient = BaseWebChromeClient()
-            view.webViewClient = BaseWebViewClient()
-            sPool.push(view)
-        }
-    }
-
-    /**
-     * 获取webview
-     */
-    fun getWebView(context: Context): BaseWebView {
-        synchronized(lock) {
-            val webView: BaseWebView
-            if (sPool.size > 0) {
-                webView = sPool.pop()
-                Log.d(TAG, "getWebView from pool")
-            } else {
-                webView = BaseWebView(MutableContextWrapper(context))
-                Log.d(TAG, "getWebView from create")
-            }
-
-            val contextWrapper = webView.context as MutableContextWrapper
-            contextWrapper.baseContext = context
-
-            // 默认设置
-            webView.webChromeClient = BaseWebChromeClient()
-            webView.webViewClient = BaseWebViewClient()
-            return webView
-        }
-    }
-
-    /**
-     * 回收 WebView
-     */
-    fun recycle(webView: BaseWebView) {
-        // 释放资源
-        webView.release()
-
-        // 根据池容量判断是否销毁 【也可以增加其他条件 如手机低内存等等】
-        val contextWrapper = webView.context as MutableContextWrapper
-        contextWrapper.baseContext = webView.context.applicationContext
-        synchronized(lock) {
-            if (sPool.size < maxSize) {
-                sPool.push(webView)
-            } else {
-                webView.destroy()
-            }
+        fun getInstance(): WebViewPool = sInstance ?: synchronized(this) {
+            sInstance ?: WebViewPool().also { sInstance = it }
         }
     }
 }

@@ -13,7 +13,6 @@ import com.robin.module_web.WebViewPool
 class ScrollFragment : LegacyBaseFragment<ScrollViewModel, FragmentScrollViewBinding>() {
 
     private val demoAdapter by lazy { DemoAdapter(requireContext()) }
-    // 从缓存池获取
     private val mWebView by lazy { WebViewPool.getInstance().getWebView(requireContext()) }
     override fun initView(savedInstanceState: Bundle?) {
         binding.recycleView.layoutManager = LinearLayoutManager(mActivity)

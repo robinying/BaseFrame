@@ -20,23 +20,39 @@ sealed interface DemoAction {
     data object ShowDialog : DemoAction
 }
 
-data class DemoCatalogItem(
+/**
+ * Describes whether a demo can be launched on the current device.
+ */
+sealed interface DemoAvailability {
+    data object Available : DemoAvailability
+
+    data class Unavailable(@StringRes val reasonRes: Int) : DemoAvailability
+}
+
+/**
+ * Immutable metadata used to render and launch one item in the demo catalog.
+ */
+data class DemoSpec(
     val id: String,
     @StringRes val titleRes: Int,
     @StringRes val summaryRes: Int,
     val category: DemoCategory,
     @DrawableRes val iconRes: Int,
-    val action: DemoAction
-)
+    val action: DemoAction,
+    val availability: DemoAvailability = DemoAvailability.Available
+) {
+    val isAvailable: Boolean
+        get() = availability is DemoAvailability.Available
+}
 
 sealed interface DemoCatalogRow {
     data class CategoryHeader(val category: DemoCategory) : DemoCatalogRow
-    data class DemoItem(val item: DemoCatalogItem) : DemoCatalogRow
+    data class DemoItem(val item: DemoSpec) : DemoCatalogRow
 }
 
 object DemoCatalog {
-    val items: List<DemoCatalogItem> = listOf(
-        DemoCatalogItem(
+    val items: List<DemoSpec> = listOf(
+        DemoSpec(
             id = "dialog",
             titleRes = R.string.demo_title_dialog,
             summaryRes = R.string.demo_summary_dialog,
@@ -44,7 +60,7 @@ object DemoCatalog {
             iconRes = DemoCategory.OVERLAY.iconRes,
             action = DemoAction.ShowDialog
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "any_layer",
             titleRes = R.string.demo_title_any_layer,
             summaryRes = R.string.demo_summary_any_layer,
@@ -52,7 +68,7 @@ object DemoCatalog {
             iconRes = DemoCategory.OVERLAY.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_anyLayerFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "popup",
             titleRes = R.string.demo_title_popup,
             summaryRes = R.string.demo_summary_popup,
@@ -60,7 +76,7 @@ object DemoCatalog {
             iconRes = DemoCategory.OVERLAY.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_popupWindowFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "notification",
             titleRes = R.string.demo_title_notification,
             summaryRes = R.string.demo_summary_notification,
@@ -68,7 +84,7 @@ object DemoCatalog {
             iconRes = DemoCategory.OVERLAY.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_notificationFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "motion_layout",
             titleRes = R.string.demo_title_motion_layout,
             summaryRes = R.string.demo_summary_motion_layout,
@@ -76,7 +92,7 @@ object DemoCatalog {
             iconRes = DemoCategory.LAYOUT.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_motionFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "coordinator_layout",
             titleRes = R.string.demo_title_coordinator_layout,
             summaryRes = R.string.demo_summary_coordinator_layout,
@@ -84,7 +100,7 @@ object DemoCatalog {
             iconRes = DemoCategory.LAYOUT.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_coordinatorFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "over_scroll",
             titleRes = R.string.demo_title_over_scroll,
             summaryRes = R.string.demo_summary_over_scroll,
@@ -92,7 +108,7 @@ object DemoCatalog {
             iconRes = DemoCategory.LAYOUT.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_scrollFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "flow",
             titleRes = R.string.demo_title_flow,
             summaryRes = R.string.demo_summary_flow,
@@ -100,7 +116,7 @@ object DemoCatalog {
             iconRes = DemoCategory.LAYOUT.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_flowFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "scoped_storage",
             titleRes = R.string.demo_title_scoped_storage,
             summaryRes = R.string.demo_summary_scoped_storage,
@@ -108,7 +124,7 @@ object DemoCatalog {
             iconRes = DemoCategory.STATE.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_storageFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "count_down",
             titleRes = R.string.demo_title_count_down,
             summaryRes = R.string.demo_summary_count_down,
@@ -116,7 +132,7 @@ object DemoCatalog {
             iconRes = DemoCategory.STATE.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_countDownFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "dsl",
             titleRes = R.string.demo_title_dsl,
             summaryRes = R.string.demo_summary_dsl,
@@ -124,7 +140,7 @@ object DemoCatalog {
             iconRes = DemoCategory.STATE.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_dslFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "behavior",
             titleRes = R.string.demo_title_behavior,
             summaryRes = R.string.demo_summary_behavior,
@@ -132,7 +148,7 @@ object DemoCatalog {
             iconRes = DemoCategory.STATE.iconRes,
             action = DemoAction.Navigate(R.id.action_main_to_behaviorFragment)
         ),
-        DemoCatalogItem(
+        DemoSpec(
             id = "camera",
             titleRes = R.string.demo_title_camera,
             summaryRes = R.string.demo_summary_camera,
@@ -143,7 +159,7 @@ object DemoCatalog {
     )
 
     /**
-     * Filters the catalog while preserving the original catalog order.
+     * Filters the catalog while preserving original order.
      *
      * The Android UI supplies localized title and summary text through
      * [searchableText]. The default keeps this model usable from plain unit
@@ -152,10 +168,11 @@ object DemoCatalog {
     fun filter(
         query: String = "",
         category: DemoCategory? = null,
-        searchableText: (DemoCatalogItem) -> String = { it.id }
-    ): List<DemoCatalogItem> {
+        searchableText: (DemoSpec) -> String = { it.id },
+        specs: List<DemoSpec> = items
+    ): List<DemoSpec> {
         val normalizedQuery = query.trim()
-        return items.filter { item ->
+        return specs.filter { item ->
             val matchesCategory = category == null || item.category == category
             val matchesQuery = normalizedQuery.isEmpty() || searchableText(item)
                 .contains(normalizedQuery, ignoreCase = true)
@@ -163,7 +180,19 @@ object DemoCatalog {
         }
     }
 
-    fun rows(items: List<DemoCatalogItem> = this.items): List<DemoCatalogRow> = buildList {
+    /**
+     * Finds a catalog item by its stable identifier.
+     */
+    fun findById(id: String): DemoSpec? = items.firstOrNull { it.id == id }
+
+    /**
+     * Returns a user-visible availability reason for a known unavailable demo.
+     */
+    @StringRes
+    fun unavailableReason(id: String): Int? =
+        (findById(id)?.availability as? DemoAvailability.Unavailable)?.reasonRes
+
+    fun rows(items: List<DemoSpec> = this.items): List<DemoCatalogRow> = buildList {
         items.groupBy { it.category }.forEach { (category, categoryItems) ->
             add(DemoCatalogRow.CategoryHeader(category))
             categoryItems.forEach { add(DemoCatalogRow.DemoItem(it)) }

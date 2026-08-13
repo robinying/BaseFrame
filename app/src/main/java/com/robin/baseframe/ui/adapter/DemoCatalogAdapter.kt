@@ -1,12 +1,14 @@
 package com.robin.baseframe.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.robin.baseframe.databinding.ItemDemoCatalogBinding
 import com.robin.baseframe.databinding.ItemDemoCategoryBinding
+import com.robin.baseframe.ui.home.DemoAvailability
 import com.robin.baseframe.ui.home.DemoCatalogRow
 
 class DemoCatalogAdapter(
@@ -55,10 +57,17 @@ class DemoCatalogAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(row: DemoCatalogRow.DemoItem) {
             val item = row.item
+            val unavailableReason = (item.availability as? DemoAvailability.Unavailable)?.reasonRes
             binding.demoIcon.setImageResource(item.iconRes)
             binding.demoTitle.setText(item.titleRes)
-            binding.demoSummary.setText(item.summaryRes)
-            binding.root.setOnClickListener { onItemClick(row) }
+            binding.demoSummary.setText(unavailableReason ?: item.summaryRes)
+            binding.demoUnavailableBadge.visibility = if (unavailableReason == null) View.GONE else View.VISIBLE
+            binding.root.isEnabled = unavailableReason == null
+            binding.root.setOnClickListener {
+                if (unavailableReason == null) {
+                    onItemClick(row)
+                }
+            }
         }
     }
 

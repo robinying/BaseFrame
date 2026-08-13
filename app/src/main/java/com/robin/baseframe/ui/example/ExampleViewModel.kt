@@ -1,10 +1,11 @@
 package com.robin.baseframe.ui.example
 
+import androidx.lifecycle.viewModelScope
 import com.robin.baseframe.app.base.BaseViewModel
 import com.robin.baseframe.base.arch.Result
 import com.robin.baseframe.domain.usecase.GetHomeDataUseCase
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,6 +19,8 @@ class ExampleViewModel @Inject constructor(
     private val getHomeDataUseCase: GetHomeDataUseCase
 ) : BaseViewModel<ExampleUiState, ExampleUiEvent, ExampleUiEffect>(ExampleUiState()) {
 
+    private var loadJob: Job? = null
+
     override fun onEvent(event: ExampleUiEvent) {
         when (event) {
             is ExampleUiEvent.LoadHome -> loadHomeData()
@@ -26,7 +29,8 @@ class ExampleViewModel @Inject constructor(
     }
 
     private fun loadHomeData() {
-        viewModelScope.launch {
+        loadJob?.cancel()
+        loadJob = viewModelScope.launch {
             getHomeDataUseCase().collect { result ->
                 when (result) {
                     is Result.Loading -> updateState { copy(isLoading = true, error = null) }

@@ -1,5 +1,7 @@
 package com.robin.baseframe.ui.home
 
+import com.robin.baseframe.R
+
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -31,6 +33,50 @@ class DemoCatalogTest {
         assertTrue(rows.first() is DemoCatalogRow.CategoryHeader)
     }
 
+    @Test
+    fun unavailableDemoExposesItsReasonAndRemainsInRows() {
+        val unavailable = DemoSpec(
+            id = "unavailable",
+            titleRes = R.string.demo_title_camera,
+            summaryRes = R.string.demo_summary_camera,
+            category = DemoCategory.DEVICE,
+            iconRes = DemoCategory.DEVICE.iconRes,
+            action = DemoAction.Navigate(R.id.action_main_to_cameraFragment),
+            availability = DemoAvailability.Unavailable(
+                R.string.demo_unavailable_feature_not_supported
+            )
+        )
+
+        assertFalse(unavailable.isAvailable)
+        assertEquals(
+            R.string.demo_unavailable_feature_not_supported,
+            (unavailable.availability as DemoAvailability.Unavailable).reasonRes
+        )
+        assertEquals(
+            listOf(DemoCatalogRow.CategoryHeader(DemoCategory.DEVICE), DemoCatalogRow.DemoItem(unavailable)),
+            DemoCatalog.rows(listOf(unavailable))
+        )
+    }
+
+    @Test
+    fun filterRetainsUnavailableDemosForDisabledPresentation() {
+        val unavailable = DemoSpec(
+            id = "unavailable",
+            titleRes = R.string.demo_title_camera,
+            summaryRes = R.string.demo_summary_camera,
+            category = DemoCategory.DEVICE,
+            iconRes = DemoCategory.DEVICE.iconRes,
+            action = DemoAction.Navigate(R.id.action_main_to_cameraFragment),
+            availability = DemoAvailability.Unavailable(
+                R.string.demo_unavailable_feature_not_supported
+            )
+        )
+
+        assertEquals(
+            listOf(unavailable),
+            DemoCatalog.filter(specs = listOf(unavailable))
+        )
+    }
     @Test
     fun emptyQueryAndNoCategoryReturnAllItems() {
         assertEquals(DemoCatalog.items, DemoCatalog.filter())

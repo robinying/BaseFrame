@@ -1,31 +1,23 @@
 package com.robin.module_web
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.net.Uri
 import android.net.http.SslError
-import android.os.Build
-import android.webkit.*
+import android.webkit.SslErrorHandler
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
-import com.bumptech.glide.Glide
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
-import retrofit2.Retrofit
-import okio.ByteString.Companion.encodeUtf8
-import java.io.File
 
-class BaseWebViewClient : WebViewClient() {
+/**
+ * WebView client that blocks non-HTTPS and untrusted navigation.
+ *
+ * Resource interception is intentionally absent: blocking network I/O from
+ * [shouldInterceptRequest] can stall WebView's loader thread.
+ */
+class BaseWebViewClient(
+    private val policy: WebViewPolicy = WebViewPolicy.DEFAULT
+) : WebViewClient() {
 
-    private val fileApiService by lazy {
-        Retrofit.Builder()
-            .build()
-            .create(FileApiService::class.java)
-    }
-
-    /**
-     * 证书校验错误 — 直接拒绝，不提供用户绕过选项
-     */
-    @SuppressLint("WebViewClientOnReceivedSslError")
     override fun onReceivedSslError(
         view: WebView,
         handler: SslErrorHandler,
@@ -34,210 +26,39 @@ class BaseWebViewClient : WebViewClient() {
         handler.cancel()
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(23)
     override fun onReceivedError(
         view: WebView,
         request: WebResourceRequest,
         error: WebResourceError
     ) {
         if (request.isForMainFrame) {
-            onReceivedError(
-                view,
-                error.errorCode,
-                error.description.toString(),
-                request.url.toString()
-            )
+            super.onReceivedError(view, request, error)
         }
-    }
-
-    override fun onReceivedError(
-        view: WebView?,
-        errorCode: Int,
-        description: String?,
-        failingUrl: String?
-    ) {
-        super.onReceivedError(view, errorCode, description, failingUrl)
     }
 
     override fun shouldOverrideUrlLoading(
         view: WebView,
         request: WebResourceRequest
     ): Boolean {
-        return shouldOverrideUrlLoading(view, request.url.toString())
-    }
-
-    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-        val scheme = Uri.parse(url).scheme ?: return false
-        when (scheme) {
-            "http", "https" -> view.loadUrl(url)
-            // 处理其他协议
-            //"tel" ->  {}
-        }
+        loadIfTrusted(view, request.url.toString())
         return true
     }
 
-    override fun shouldInterceptRequest(
-        view: WebView,
-        request: WebResourceRequest
-    ): WebResourceResponse? {
-        var webResourceResponse: WebResourceResponse? = null
-
-        // 如果是 assets 目录下的文件
-        if (isAssetsResource(request)) {
-            webResourceResponse = assetsResourceRequest(view.context, request)
-        }
-
-        // 如果是可以缓存的文件
-        if (isCacheResource(request)) {
-            webResourceResponse = cacheResourceRequest(view.context, request)
-        }
-
-        if (webResourceResponse == null) {
-            webResourceResponse = super.shouldInterceptRequest(view, request)
-        }
-        return webResourceResponse
+    @Deprecated("Deprecated in Java")
+    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+        loadIfTrusted(view, url)
+        return true
     }
 
-    private fun isAssetsResource(webRequest: WebResourceRequest): Boolean {
-        val url = webRequest.url.toString()
-        return url.startsWith("file:///android_asset/")
-    }
-
-    /**
-     * assets 文件请求
-     */
-    private fun assetsResourceRequest(
-        context: Context,
-        webRequest: WebResourceRequest
-    ): WebResourceResponse? {
-        val url = webRequest.url.toString()
-        try {
-            val filenameIndex = url.lastIndexOf("/") + 1
-            val filename = url.substring(filenameIndex)
-            val suffixIndex = url.lastIndexOf(".")
-            val suffix = url.substring(suffixIndex + 1)
-            val webResourceResponse = WebResourceResponse(
-                getMimeTypeFromUrl(url),
-                "UTF-8",
-                context.assets.open("$suffix/$filename")
-            )
-            webResourceResponse.responseHeaders = mapOf("access-control-allow-origin" to "*")
-            return webResourceResponse
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private fun loadIfTrusted(view: WebView, url: String): Boolean {
+        if (!policy.isTrusted(url)) {
+            return false
         }
-        return null
-    }
-
-    /**
-     * 判断是否是可以被缓存等资源
-     */
-    private fun isCacheResource(webRequest: WebResourceRequest): Boolean {
-        val url = webRequest.url.toString()
-        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-        return extension == "ico" || extension == "bmp" || extension == "gif"
-                || extension == "jpeg" || extension == "jpg" || extension == "png"
-                || extension == "svg" || extension == "webp" || extension == "css"
-                || extension == "js" || extension == "json" || extension == "eot"
-                || extension == "otf" || extension == "ttf" || extension == "woff"
-    }
-
-    /**
-     * 可缓存文件请求
-     */
-    private fun cacheResourceRequest(
-        context: Context,
-        webRequest: WebResourceRequest
-    ): WebResourceResponse? {
-        var url = webRequest.url.toString()
-        var mimeType = getMimeTypeFromUrl(url)
-
-        // WebView 中的图片利用 Glide 加载(能够和App其他页面共用缓存)
-        if (isImageResource(webRequest)) {
-            return try {
-                val file = Glide.with(context).download(url).submit().get()
-                val webResourceResponse = WebResourceResponse(mimeType, "UTF-8", file.inputStream())
-                webResourceResponse.responseHeaders = mapOf("access-control-allow-origin" to "*")
-                webResourceResponse
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
+        if (view is BaseWebView) {
+            return view.loadTrustedUrl(url)
         }
-
-        /**
-         * 其他文件缓存逻辑
-         * 1.寻找缓存文件，本地有缓存直接返回缓存文件
-         * 2.无缓存，下载到本地后返回
-         * 注意！！！
-         * 一定要确保文件下载完整，我这里采用下载完成后给文件加 "success-" 前缀的方法
-         */
-        val webCachePath = WebUtils.getWebViewCachePath(context)
-        val cacheFilePath =
-            webCachePath + File.separator + "success-" + url.encodeUtf8().md5().hex() // 自定义文件命名规则
-        val cacheFile = File(cacheFilePath)
-        if (!cacheFile.exists() || !cacheFile.isFile) { // 本地不存在 则开始下载
-            // 下载文件
-            val sourceFilePath = webCachePath + File.separator + url.encodeUtf8().md5().hex()
-            val sourceFile = File(sourceFilePath)
-            runBlocking {
-                try {
-                    withTimeout(30_000L) {
-                        fileApiService.downloadFile(url/*, webRequest.requestHeaders*/).use {
-                            it.byteStream().use { inputStream ->
-                                sourceFile.writeBytes(inputStream.readBytes())
-                            }
-                        }
-                    }
-                    // 下载完成后增加 "success-" 前缀 代表文件无损 【防止io流被异常中断导致文件损坏 无法判断】
-                    sourceFile.renameTo(cacheFile)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    // 发生异常删除文件
-                    sourceFile.deleteOnExit()
-                    cacheFile.deleteOnExit()
-                }
-            }
-        }
-
-        // 缓存文件存在则返回
-        if (cacheFile.exists() && cacheFile.isFile) {
-            val webResourceResponse =
-                WebResourceResponse(mimeType, "UTF-8", cacheFile.inputStream())
-            webResourceResponse.responseHeaders = mapOf("access-control-allow-origin" to "*")
-            return webResourceResponse
-        }
-        return null
+        view.loadUrl(url)
+        return true
     }
-
-    /**
-     * 判断是否是图片
-     * 有些文件存储没有后缀，也可以根据自家服务器域名等等
-     */
-    private fun isImageResource(webRequest: WebResourceRequest): Boolean {
-        val url = webRequest.url.toString()
-        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-        return extension == "ico" || extension == "bmp" || extension == "gif"
-                || extension == "jpeg" || extension == "jpg" || extension == "png"
-                || extension == "svg" || extension == "webp"
-    }
-
-    /**
-     * 根据 url 获取文件类型
-     */
-    private fun getMimeTypeFromUrl(url: String): String {
-        try {
-            val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-            if (extension.isNotBlank() && extension != "null") {
-                if (extension == "json") {
-                    return "application/json"
-                }
-                return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) ?: "*/*"
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return "*/*"
-    }
-
 }

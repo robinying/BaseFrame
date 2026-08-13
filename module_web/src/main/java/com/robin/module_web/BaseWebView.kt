@@ -10,108 +10,117 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 
+/**
+ * Lifecycle-aware WebView with a deny-by-default security policy.
+ */
 class BaseWebView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
+    context: Context,
+    attrs: AttributeSet? = null
 ) : WebView(context, attrs), LifecycleEventObserver {
 
+    private var mPolicy: WebViewPolicy = WebViewPolicy.DEFAULT
+
     init {
-        // WebView 调试模式开关
-        setWebContentsDebuggingEnabled(true)
-        // 不显示滚动条
+        setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
         isVerticalScrollBarEnabled = false
         isHorizontalScrollBarEnabled = false
-        // 初始化设置
-        WebUtils.defaultSettings(context, this)
+        WebUtils.defaultSettings(this)
+        applyPolicy()
     }
 
-    /**
-     * 获取当前url
-     */
-    override fun getUrl(): String? {
-        return super.getOriginalUrl() ?: return super.getUrl()
-    }
+    override fun getUrl(): String? = super.getOriginalUrl() ?: super.getUrl()
 
     override fun canGoBack(): Boolean {
         val backForwardList = copyBackForwardList()
-        val currentIndex = backForwardList.currentIndex - 1
-        if (currentIndex >= 0) {
-            val item = backForwardList.getItemAtIndex(currentIndex)
-            if (item?.url == "about:blank") {
-                return false
-            }
+        val previousIndex = backForwardList.currentIndex - 1
+        if (previousIndex >= 0 && backForwardList.getItemAtIndex(previousIndex)?.url == "about:blank") {
+            return false
         }
         return super.canGoBack()
     }
 
-    /**
-     * 设置 WebView 生命管控（自动回调生命周期方法）
-     */
+    /** Applies a policy before the caller loads trusted remote content. */
+    fun configure(policy: WebViewPolicy) {
+        mPolicy = policy
+        applyPolicy()
+        setCustomWebViewClient(BaseWebViewClient(policy))
+        setCustomWebChromeClient(BaseWebChromeClient(policy))
+    }
+
+    /** Starts a page load only when the URL belongs to the configured HTTPS allowlist. */
+    fun loadTrustedUrl(url: String): Boolean {
+        if (!mPolicy.isTrusted(url)) {
+            return false
+        }
+        settings.javaScriptEnabled = mPolicy.allowsJavaScript(url)
+        settings.domStorageEnabled = mPolicy.allowsJavaScript(url)
+        settings.databaseEnabled = mPolicy.allowsJavaScript(url)
+        super.loadUrl(url)
+        return true
+    }
+
+    /** Registers lifecycle callbacks for the owner of this WebView instance. */
     fun setLifecycleOwner(owner: LifecycleOwner) {
         owner.lifecycle.addObserver(this)
     }
 
-    /**
-     * 生命周期回调
-     */
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         when (event) {
             Lifecycle.Event.ON_RESUME -> onResume()
             Lifecycle.Event.ON_STOP -> onPause()
             Lifecycle.Event.ON_DESTROY -> {
                 source.lifecycle.removeObserver(this)
-                onDestroy()
+                releaseToPool()
             }
-            else ->{}
+            else -> Unit
         }
     }
 
-    /**
-     * 生命周期 onResume()
-     */
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onResume() {
         super.onResume()
-        settings.javaScriptEnabled = true
     }
 
-    /**
-     * 生命周期 onPause()
-     */
     override fun onPause() {
         super.onPause()
     }
 
-    /**
-     * 生命周期 onDestroy()
-     * 父类没有 需要自己写
-     */
-    fun onDestroy() {
-        settings.javaScriptEnabled = false
+    /** Returns this instance to the pool. Call once when its owner no longer needs it. */
+    fun releaseToPool() {
         WebViewPool.getInstance().recycle(this)
     }
 
-    /**
-     * 释放资源操作
-     */
+    /** Clears all page-specific state before pooling or destruction. */
     fun release() {
-        (parent as ViewGroup?)?.removeView(this)
-        removeAllViews()
+        (parent as? ViewGroup)?.removeView(this)
         stopLoading()
-        setCustomWebViewClient(null)
-        setCustomWebChromeClient(null)
+        removeAllViews()
+        removeJavascriptInterface(DEFAULT_BRIDGE_NAME)
+        super.setWebViewClient(WebViewClient())
+        super.setWebChromeClient(null)
         loadUrl("about:blank")
         clearHistory()
+        settings.javaScriptEnabled = false
+        settings.domStorageEnabled = false
+        settings.databaseEnabled = false
     }
 
     fun setCustomWebViewClient(client: BaseWebViewClient?) {
-        if (client == null) {
-            super.setWebViewClient(WebViewClient())
-        } else {
-            super.setWebViewClient(client)
-        }
+        super.setWebViewClient(client ?: WebViewClient())
     }
 
     fun setCustomWebChromeClient(client: BaseWebChromeClient?) {
         super.setWebChromeClient(client)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun applyPolicy() {
+        settings.javaScriptEnabled = false
+        settings.domStorageEnabled = false
+        settings.databaseEnabled = false
+        removeJavascriptInterface(DEFAULT_BRIDGE_NAME)
+    }
+
+    private companion object {
+        const val DEFAULT_BRIDGE_NAME = "webkit"
     }
 }
